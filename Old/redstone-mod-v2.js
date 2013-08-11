@@ -1,16 +1,13 @@
 var powerLen = 10;
 var powerTime = 50;
 var redstoneTick = 20;
-var buttonId = 22;
-var leverId = 57;
+var powererId = 22;
 var repeatorId = 41;
 var wireId = 42;
 var pWireId = 246;
 
 var pistonId = 128;
 var pistonExtendId = 253;
-
-var pressurePlateId = 44;
 
 /* CODE */
 
@@ -27,27 +24,11 @@ function useItem(x,y,z,itemId,blockId,side)
   // Cable powered - Glowing Obdisan - 246
   // Repeator - Gold Block - 41
   
-  if(blockId == buttonId){
+  if(blockId == powererId){
   	powerBlockX = x;
     powerBlockY = y;
-    powerBlockZ = z
-    ewtX = new Array();
-    ewtY = new Array();
-    ewtZ = new Array();
-    
+    powerBlockZ = z;
     powerTimeout = powerTime;
-    rsTick = 1;
-    power = true;
-    preventDefault();
-  }else if(blockId == leverId){
-  	powerBlockX = x;
-    powerBlockY = y;
-    powerBlockZ = z
-    ewtX = new Array();
-    ewtY = new Array();
-    ewtZ = new Array();
-    
-    powerTimeout = powerTimeout==-11?0:-11;
     rsTick = 1;
     power = true;
     preventDefault();
@@ -59,7 +40,6 @@ function attackHook(attacker, victim)
 }
 
 var wereThereX, wereThereY, wereThereZ;
-var ewtX, ewtY, ewtZ; // earlier turn were there
 var nextTurn = false;
 var nextEnable = false;
 var nextTurnX, nextTurnY, nextTurnZ, nextTurnLen;
@@ -88,14 +68,6 @@ function canGo(x,y,z,mode){
       if(wereThereX[i] == x && wereThereY[i] == y && wereThereZ[i] == z){
         // We were there
         return false;
-      }
-    }
-    
-    for(var i=0;i<ewtX.length;i++){
-      if(ewtX[i] == x && ewtY[i] == y && ewtZ[i] == z){
-        ewtX.splice(i,1);
-        ewtY.splice(i,1);
-        ewtZ.splice(i,1);
       }
     }
     return true;
@@ -165,8 +137,6 @@ function goPower(enable,x,y,z,len){
   goPowerA(enable, x, y-1, z, len);
   goPowerA(enable, x, y+1, z, len);
 }
-
-var wereOnPressurePlate = false;
 function modTick()
 {
   if(nextTurn){
@@ -182,38 +152,14 @@ function modTick()
     nextTurnLen = new Array();
     
     for(var i=0;i<tntX.length;i++){
+      
       goPower(nextEnable, tntX[i], tntY[i], tntZ[i], tntLen[i]);
     }
-    
-    if(nextTurn == false){
-      for(var i=0;i<ewtX.length;i++){
-        if(getTile(ewtX[i], ewtY[i], ewtZ[i]) == pWireId)
-           setTile(ewtX[i], ewtY[i], ewtZ[i], wireId);
-      }
-      
-      ewtX = wereThereX;
-      ewtY = wereThereY;
-      ewtZ = wereThereZ;
-    }
   }else{
-    if(wereOnPressurePlate){
-  	  if(getTile(getPlayerX(), getPlayerY()-1.6, getPlayerZ()) == pressurePlateId){
-        rsTick--;
-        if(rsTick <= 0){
-          prepare();
-          goPower(true, powerBlockX, powerBlockY, powerBlockZ, 0);
-          rsTick = redstoneTick;
-        }
-      }else{
-        prepare();
-        goPower(false, powerBlockX, powerBlockY, powerBlockZ, 0);
-        wereOnPressurePlate = false;
-      }
-    }else if(power){
-      if(powerTimeout != -11) powerTimeout--;
-      if(powerTimeout > 0 || powerTimeout == -11){
-        if(getTile(powerBlockX, powerBlockY, powerBlockZ) != buttonId &&
-           getTile(powerBlockX, powerBlockY, powerBlockZ) != leverId){
+    if(power){
+      powerTimeout--;
+      if(powerTimeout > 0){
+        if(getTile(powerBlockX, powerBlockY, powerBlockZ) != powererId){
           prepare();
           goPower(false, powerBlockX, powerBlockY, powerBlockZ, 0);
           power = false;
@@ -229,19 +175,6 @@ function modTick()
         prepare();
         goPower(false, powerBlockX, powerBlockY, powerBlockZ, 0);
         power = false;
-      }
-    }else{
-      // Pressure Plates
-      if(getTile(getPlayerX(), getPlayerY()-1.6, getPlayerZ()) == pressurePlateId){
-      	powerBlockX = getPlayerX();
-    	powerBlockY = getPlayerY()-1.6;
-    	powerBlockZ = getPlayerZ();
-    	ewtX = new Array();
-    	ewtY = new Array();
-    	ewtZ = new Array();
-    	
-    	wereOnPressurePlate = true;
-    	rsTick = 1;
       }
     }
   }
