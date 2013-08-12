@@ -1,4 +1,4 @@
-var powerLen = 14;
+var powerLen = 10;
 var powerTime = 50;
 var redstoneTick = 20;
 var buttonId = 22;
@@ -117,7 +117,7 @@ function goPowerA(enable,x,y,z,len){
     nextTurnX.push(x);
     nextTurnY.push(y);
     nextTurnZ.push(z);
-    nextTurnLen.push(len+1);
+    nextTurnLen.push(len);
     //goPower(enable,x,y,z,len+1);
   }else if(canGo(x,y,z,1)){
     // Repeator
@@ -130,7 +130,7 @@ function goPowerA(enable,x,y,z,len){
     nextTurnX.push(x);
     nextTurnY.push(y);
     nextTurnZ.push(z);
-    nextTurnLen.push(0);
+    nextTurnLen.push(len);
     //goPower(enable,x,y,z,0);
   }else if(canGo(x,y,z,2)){
     // TNT
@@ -138,24 +138,8 @@ function goPowerA(enable,x,y,z,len){
   }else if(canGo(x,y,z,3)){
     // YAY! Piston!
     if(enable){
-      if(getTile(x,y+1,z) != pistonExtendId){ 
-        if(getTile(x,y+1,z) != 0){
-          var oY = y; // begin Y
-          var gtY = oY; // go-to-Y
-          for(var i=oY;i<128;i++){
-            if(getTile(x,i,z) == 0) {
-              gtY = i;
-              break;
-            }
-          }
-          
-          for(var i=gtY;i>oY;i--)
-          {
-            setTile(x,i+1,z,getTile(x,i,z));
-          }
-        }
-        setTile(x,y+1,z,pistonExtendId);
-      }
+      if(getTile(x,y+1,z) != pistonExtendId && getTile(x,y+1,z) != 0) setTile(x,y+2,z,getTile(x,y+1,z));
+      setTile(x,y+1,z,pistonExtendId);
     }else{
       setTile(x,y+1,z,0);
     }
