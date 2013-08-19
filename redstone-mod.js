@@ -1,11 +1,17 @@
 var powerLen = 14;
 var powerTime = 50;
 var redstoneTick = 20;
-var buttonId = 22;
-var leverId = 57;
-var repeatorId = 41;
-var wireId = 42;
+
+var buttonId = 255;
+var leverId = 50; // torch, torch, torch. Is there any better solution?
+var repeatorId = 249;
+var wireId = 248;
 var pWireId = 246;
+
+var aButtonId = 16;
+var aLeverId = 56;
+var aRepeatorId = 41;
+var aWireId = 103;
 
 var pistonId = 128;
 var pistonExtendId = 253;
@@ -20,25 +26,150 @@ var rsTick = 20;
 var powerBlockX, powerBlockY, powerBlockZ;
 var pistonBlockX, pistonBlockY, pistonBlockZ;
 
+
+function clearCTable(x,y,z){
+  setTile(x-3, y+1, z-2, 0);
+  setTile(x-2, y+1, z-2, 0);
+  setTile(x-1, y+1, z-2, 0);
+  
+  setTile(x-3, y+1, z-1, 0);
+  setTile(x-2, y+1, z-1, 0);
+  setTile(x-1, y+1, z-1, 0);
+      
+  setTile(x-3, y+1, z, 0);
+  setTile(x-2, y+1, z, 0);
+  setTile(x-1, y+1, z, 0);
+}
+
 function useItem(x,y,z,itemId,blockId,side)
 {
-  // Lapis Lazuli - Powerer - 22
-  // Cable unpowered - Iron Block - 42
-  // Cable powered - Glowing Obdisan - 246
-  // Repeator - Gold Block - 41
+  if(blockId == aButtonId || blockId == aLeverId || itemId == aWireId){
+    // Use alternative scheme. Okay.
+    buttonId = aButtonId;
+    leverId = aLeverId;
+    repeatorId = aRepeatorId;
+    wireId = aWireId;
+  }
   
-  if(blockId == buttonId){
-  	powerBlockX = x;
-    powerBlockY = y;
-    powerBlockZ = z
-    ewtX = new Array();
-    ewtY = new Array();
-    ewtZ = new Array();
-    
-    powerTimeout = powerTime;
-    rsTick = 1;
-    power = true;
-    preventDefault();
+  if(blockId == 58 && itemId == wireId){
+    if(getTile(x, y, z-1) == 48 &&
+       
+       getTile(x-1, y, z) == 48 &&
+       getTile(x-2, y, z) == 48 &&
+       getTile(x-3, y, z) == 48 &&
+       
+       getTile(x-1, y, z-1) == 48 &&
+       getTile(x-2, y, z-1) == 48 &&
+       getTile(x-3, y, z-1) == 48 &&
+      
+             
+       getTile(x-1, y, z-2) == 48 &&
+       getTile(x-2, y, z-2) == 48 &&
+       getTile(x-3, y, z-2) == 48){
+      
+      // craft!
+      
+      var c1x1 = getTile(x-3, y+1, z-2);
+      var c2x1 = getTile(x-2, y+1, z-2);
+      var c3x1 = getTile(x-1, y+1, z-2);
+      
+      var c1x2 = getTile(x-3, y+1, z-1);
+      var c2x2 = getTile(x-2, y+1, z-1);
+      var c3x2 = getTile(x-1, y+1, z-1);
+      
+      var c1x3 = getTile(x-3, y+1, z);
+      var c2x3 = getTile(x-2, y+1, z);
+      var c3x3 = getTile(x-1, y+1, z);
+      
+      // Craft button:
+      // free  - free  - free
+      // free  - stone - free
+      // free  - free - free
+      
+      if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
+         c1x2 == 0 && c2x2 == 1 && c3x2 == 0 &&
+         c1x3 == 0 && c2x3 == 0 && c3x3 == 0){
+      	clearCTable(x,y,z);
+        setTile(x, y+1, z-1, buttonId);
+      }
+      
+      // Craft lever:
+      // free  - free  - free
+      // free  - plank - free
+      // free  - stone - free
+      
+      if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
+         c1x2 == 0 && c2x2 == 5 && c3x2 == 0 &&
+         c1x3 == 0 && c2x3 == 1 && c3x3 == 0){
+      	clearCTable(x,y,z);
+        setTile(x, y+1, z-1, leverId);
+      }
+      
+      // Craft repeator:
+      // free  - free  - free
+      // lever - wire  - lever
+      // stone - stone - stone
+      
+      if(c1x1 == 0       && c2x1 == 0      && c3x1 == 0       &&
+         c1x2 == leverId && c2x2 == wireId && c3x2 == leverId &&
+         c1x3 == 1       && c2x3 == 1      && c3x3 == 1){
+      	clearCTable(x,y,z);
+        setTile(x, y+1, z-1, repeatorId);
+      }
+      
+      // Craft piston:
+      // plank  - plank - plank
+      // cobble - iron  - cobble
+      // cobble - wire  - cobble
+      
+      clientMessage(c1x2+" "+c2x2+" "+c3x2+" "+wireId);
+      
+      if(c1x1 == 5 && c2x1 == 5      && c3x1 == 5 &&
+         c1x2 == 4 && c2x2 == 42     && c3x2 == 4 &&
+         c1x3 == 4 && c2x3 == wireId && c3x3 == 4){
+      	clearCTable(x,y,z);
+        setTile(x, y+1, z-1, pistonId);
+      }
+      
+      preventDefault();
+    }else{
+      // make a 3x3 square for redstone crafting
+      // and yes, it doesn't support other items crafting, sorry
+      // and yes, I'm going to create a mod for it
+      setTile(x, y-1, z, 48);
+      setTile(x-1, y-1, z, 48);
+      setTile(x+1, y-1, z, 48);
+      
+      setTile(x, y-1, z-1, 48);
+      setTile(x-1, y-1, z-1, 48);
+      setTile(x+1, y-1, z-1, 48);
+      
+      setTile(x, y-1, z+1, 48);
+      setTile(x-1, y-1, z+1, 48);
+      setTile(x+1, y-1, z+1, 48);
+      
+      
+      setTile(x+2, y-1, z, 48);
+      setTile(x+2, y-1, z+1, 58);
+      
+      setTile(x, y, z, 0);
+      
+      preventDefault();
+    }
+  }else if(blockId == buttonId){
+    if(buttonId==255?(getTile(x,y-1,z)!=48):true){
+      powerBlockX = x;
+      powerBlockY = y;
+      powerBlockZ = z
+      ewtX = new Array();
+      ewtY = new Array();
+      ewtZ = new Array();
+      
+      powerTimeout = powerTime;
+      rsTick = 1;
+      power = true;
+      preventDefault();
+    }
   }else if(blockId == leverId){
   	powerBlockX = x;
     powerBlockY = y;
@@ -50,6 +181,13 @@ function useItem(x,y,z,itemId,blockId,side)
     powerTimeout = powerTimeout==-11?0:-11;
     rsTick = 1;
     power = true;
+    preventDefault();
+  }else if((blockId == 73 || blockId == 74) && (itemId == 257 || itemId == 285 || itemId == 278)){
+    // if it is redstone ore
+    // drop 4-5 redstone
+    var howMuch = 4+parseInt(Math.random());
+    addItemInventory(wireId, howMuch);
+    setTile(x,y,z,0);
     preventDefault();
   }
 }
@@ -104,7 +242,7 @@ function canGo(x,y,z,mode){
   }
 }
 
-function goPowerA(enable,x,y,z,len){
+function goPowerA(enable,x,y,z,len,dir){
   if(canGo(x,y,z,0)){
     // Redstone
     if(enable?(getTile(x,y,z)!=pWireId):(getTile(x,y,z)!=wireId)) setTile(x,y,z,enable?pWireId:wireId);
@@ -138,26 +276,35 @@ function goPowerA(enable,x,y,z,len){
   }else if(canGo(x,y,z,3)){
     // YAY! Piston!
     if(enable){
-      if(getTile(x,y+1,z) != pistonExtendId){ 
-        if(getTile(x,y+1,z) != 0){
-          var oY = y; // begin Y
-          var gtY = oY; // go-to-Y
-          for(var i=oY;i<128;i++){
-            if(getTile(x,i,z) == 0) {
-              gtY = i;
-              break;
-            }
-          }
-          
-          for(var i=gtY;i>oY;i--)
-          {
-            setTile(x,i+1,z,getTile(x,i,z));
-          }
-        }
-        setTile(x,y+1,z,pistonExtendId);
-      }
+      if(dir == 0){
+        pistonB(x,y,z,-1,0,0);
+      }else if(dir == 1){
+        pistonA(x,y,z,1,0,0,255);
+      }else if(dir == 2){
+        pistonB(x,y,z,0,0,-1);
+      }else if(dir == 3){
+        pistonA(x,y,z,0,0,1,255);
+      }else if(dir == 4){
+        pistonB(x,y,z,0,-1,0,255);
+      }else if(dir == 5){
+        pistonA(x,y,z,0,1,0,128);
+      }/*else if(dir == 4){
+        pistonDown(x,y,z);
+      }*/
     }else{
-      setTile(x,y+1,z,0);
+      if(dir == 0){
+        setTile(x-1,y,z,0);
+      }else if(dir == 1){
+        setTile(x+1,y,z,0);
+      }else if(dir == 2){
+        setTile(x,y,z-1,0);
+      }else if(dir == 3){
+        setTile(x,y,z+1,0);
+      }else if(dir == 4){
+        setTile(x,y-1,z,0);
+      }else if(dir == 5){
+        setTile(x,y+1,z,0);
+      }
     }
   }else if(canGo(x,y,z,4)){
     // Door!
@@ -167,6 +314,92 @@ function goPowerA(enable,x,y,z,len){
     else if(getTile(x,y,z+1) == 0) { door(x,y,z+1); }
   }
 }
+
+function pistonUp(x, y, z){
+  if(getTile(x,y+1,z) != pistonExtendId){ 
+    if(getTile(x,y+1,z) != 0){
+      var oY = y; // begin Y
+      var gtY = oY; // go-to-Y
+      for(var i=oY;i<128;i++){
+        if(getTile(x,i,z) == 0) {
+          gtY = i;
+          break;
+      	}
+      }
+      
+      for(var i=gtY;i>oY;i--)
+      {
+      	setTile(x,i+1,z,getTile(x,i,z));
+      }
+	}
+	setTile(x,y+1,z,pistonExtendId);
+  }
+}
+
+function pistonA(x, y, z, dirX, dirY, dirZ, hm){
+  //clientMessage(x+" "+y+" "+z+" "+dirX+" "+dirY+" "+dirZ+" "+hm);
+  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){ 
+    if(getTile(x+dirX,y+dirY,z+dirZ) != 0){
+      var oY = dirX==1?x:(dirY==1?y:z); // begin point
+      var gtY = oY; // go-to-point
+      for(var i=oY;i<hm;i++){
+        if(getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z)) == 0) {
+          gtY = i;
+          break;
+      	}
+      }
+      
+      for(var i=gtY;i>oY;i--)
+      {
+        setTile((dirX==1?i+1:x),(dirY==1?i+1:y),(dirZ==1?i+1:z), getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z)));
+      }
+	}
+	setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
+  }
+}
+
+function pistonB(x, y, z, dirX, dirY, dirZ){
+  
+  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){ 
+    if(getTile(x+dirX,y+dirY,z+dirZ) != 0){
+      var oY = dirX==-1?x:(dirY==-1?y:z); // begin point
+      var gtY = oY; // go-to-point
+      for(var i=oY;i>0;i--){
+        if(getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z)) == 0) {
+          gtY = i;
+          break;
+      	}
+      }
+      
+      for(var i=gtY;i<oY;i++)
+      {
+        setTile((dirX==-1?i-1:x),(dirY==-1?i-1:y),(dirZ==-1?i-1:z), getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z)));
+      }
+	}
+	setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
+  }
+}
+
+function pistonDown(x, y, z){
+  if(getTile(x,y-1,z) != pistonExtendId){ 
+    if(getTile(x,y-1,z) != 0){
+      var oY = y; // begin Y
+      var gtY = oY; // go-to-Y
+      for(var i=oY;i>0;i--){
+        if(getTile(x,i,z) == 0) {
+          gtY = i;
+          break;
+      	}
+      }
+      
+      for(var i=gtY;i<oY;i++)
+      {
+      	setTile(x,i-1,z,getTile(x,i,z));
+      }
+	}
+	setTile(x,y-1,z,pistonExtendId);
+  }
+}
 function door(x, y, z){
  setTile(x,y,z,0);
  setTile(x,y,z,1);
@@ -174,12 +407,12 @@ function door(x, y, z){
 }
 function goPower(enable,x,y,z,len){
   if(len>powerLen) return;
-  goPowerA(enable, x-1, y, z, len);
-  goPowerA(enable, x+1, y, z, len);
-  goPowerA(enable, x, y, z-1, len);
-  goPowerA(enable, x, y, z+1, len);
-  goPowerA(enable, x, y-1, z, len);
-  goPowerA(enable, x, y+1, z, len);
+  goPowerA(enable, x-1, y, z, len, 0);
+  goPowerA(enable, x+1, y, z, len, 1);
+  goPowerA(enable, x, y, z-1, len, 2);
+  goPowerA(enable, x, y, z+1, len, 3);
+  goPowerA(enable, x, y-1, z, len, 4);
+  goPowerA(enable, x, y+1, z, len, 5);
 }
 
 var wereOnPressurePlate = false;
