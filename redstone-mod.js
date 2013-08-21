@@ -14,6 +14,7 @@ var aRepeatorId = 41;
 var aWireId = 103;
 
 var pistonId = 128;
+var sPistonId = 156;
 var pistonExtendId = 253;
 
 var pressurePlateId = 44;
@@ -82,52 +83,64 @@ function useItem(x,y,z,itemId,blockId,side)
       var c3x3 = getTile(x-1, y+1, z);
       
       // Craft button:
-      // free  - free  - free
-      // free  - stone - free
-      // free  - free - free
+      // free - free - free
+      // free - stone - free
+      // free - free - free
       
       if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
          c1x2 == 0 && c2x2 == 1 && c3x2 == 0 &&
          c1x3 == 0 && c2x3 == 0 && c3x3 == 0){
-      	clearCTable(x,y,z);
+        clearCTable(x,y,z);
         setTile(x, y+1, z-1, buttonId);
       }
       
       // Craft lever:
-      // free  - free  - free
-      // free  - plank - free
-      // free  - stone - free
+      // free - free - free
+      // free - plank - free
+      // free - stone - free
       
       if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
          c1x2 == 0 && c2x2 == 5 && c3x2 == 0 &&
          c1x3 == 0 && c2x3 == 1 && c3x3 == 0){
-      	clearCTable(x,y,z);
+        clearCTable(x,y,z);
         setTile(x, y+1, z-1, leverId);
       }
       
       // Craft repeator:
-      // free  - free  - free
-      // lever - wire  - lever
+      // free - free - free
+      // lever - wire - lever
       // stone - stone - stone
       
-      if(c1x1 == 0       && c2x1 == 0      && c3x1 == 0       &&
+      if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
          c1x2 == leverId && c2x2 == wireId && c3x2 == leverId &&
-         c1x3 == 1       && c2x3 == 1      && c3x3 == 1){
-      	clearCTable(x,y,z);
+         c1x3 == 1 && c2x3 == 1 && c3x3 == 1){
+        clearCTable(x,y,z);
         setTile(x, y+1, z-1, repeatorId);
       }
       
       // Craft piston:
-      // plank  - plank - plank
-      // cobble - iron  - cobble
-      // cobble - wire  - cobble
+      // plank - plank - plank
+      // cobble - iron - cobble
+      // cobble - wire - cobble
       
-      clientMessage(c1x2+" "+c2x2+" "+c3x2+" "+wireId);
       
-      if(c1x1 == 5 && c2x1 == 5      && c3x1 == 5 &&
-         c1x2 == 4 && c2x2 == 42     && c3x2 == 4 &&
+      if(c1x1 == 5 && c2x1 == 5 && c3x1 == 5 &&
+         c1x2 == 4 && c2x2 == 42 && c3x2 == 4 &&
          c1x3 == 4 && c2x3 == wireId && c3x3 == 4){
-      	clearCTable(x,y,z);
+        clearCTable(x,y,z);
+        setTile(x, y+1, z-1, pistonId);
+      }
+      
+      // Craft sticky piston:
+      // free - free   - free
+      // free - leaves - free
+      // free - piston - free
+      
+      
+      if(c1x1 == 0 && c2x1 == 0        && c3x1 == 0 &&
+         c1x2 == 0 && c2x2 == 18       && c3x2 == 0 &&
+         c1x3 == 0 && c2x3 == pistonId && c3x3 == 0){
+        clearCTable(x,y,z);
         setTile(x, y+1, z-1, pistonId);
       }
       
@@ -171,7 +184,7 @@ function useItem(x,y,z,itemId,blockId,side)
       preventDefault();
     }
   }else if(blockId == leverId){
-  	powerBlockX = x;
+   powerBlockX = x;
     powerBlockY = y;
     powerBlockZ = z
     ewtX = new Array();
@@ -193,7 +206,7 @@ function useItem(x,y,z,itemId,blockId,side)
 }
 function attackHook(attacker, victim)
 {
-	//Your Code Here
+//Your Code Here
 }
 
 var wereThereX, wereThereY, wereThereZ;
@@ -220,7 +233,7 @@ function canGo(x,y,z,mode){
   if(mode==0?(getTile(x,y,z) == wireId || getTile(x,y,z) == pWireId):
     (mode==1?(getTile(x,y,z) == repeatorId):
     (mode==2?(getTile(x,y,z) == 46):
-    (mode==3?(getTile(x,y,z) == pistonId):
+    (mode==3?(getTile(x,y,z) == pistonId || getTile(x,y,z) == sPistonId):
     (mode==4?(getTile(x,y,z) == 64):false))))){
     for(var i=0;i<wereThereX.length;i++){
       if(wereThereX[i] == x && wereThereY[i] == y && wereThereZ[i] == z){
@@ -289,21 +302,29 @@ function goPowerA(enable,x,y,z,len,dir){
       }else if(dir == 5){
         pistonA(x,y,z,0,1,0,128);
       }/*else if(dir == 4){
-        pistonDown(x,y,z);
-      }*/
+pistonDown(x,y,z);
+}*/
     }else{
+      var sticky = (getTile(x,y,z) == sPistonId);
+      
       if(dir == 0){
-        setTile(x-1,y,z,0);
+        setTile(x-1,y,z,sticky?getTile(x-2,y,z):0);
+        if(sticky)setTile(x-2,y,z,0);
       }else if(dir == 1){
-        setTile(x+1,y,z,0);
+        setTile(x+1,y,z,sticky?getTile(x-2,y,z):0);
+        if(sticky)setTile(x+2,y,z,0);
       }else if(dir == 2){
-        setTile(x,y,z-1,0);
+        setTile(x,y,z-1,sticky?getTile(x,y,z-2):0);
+        if(sticky)setTile(x,y,z-2,0);
       }else if(dir == 3){
-        setTile(x,y,z+1,0);
+        setTile(x,y,z+1,sticky?getTile(x,y,z+2):0);
+        if(sticky)setTile(x,y,z+2,0);
       }else if(dir == 4){
-        setTile(x,y-1,z,0);
+        setTile(x,y-1,z,sticky?getTile(x,y-2,z):0);
+        if(sticky)setTile(x,y-2,z,0);
       }else if(dir == 5){
-        setTile(x,y+1,z,0);
+        setTile(x,y+1,z,sticky?getTile(x,y+2,z):0);
+        if(sticky)setTile(x,y+2,z,0);
       }
     }
   }else if(canGo(x,y,z,4)){
@@ -315,30 +336,9 @@ function goPowerA(enable,x,y,z,len,dir){
   }
 }
 
-function pistonUp(x, y, z){
-  if(getTile(x,y+1,z) != pistonExtendId){ 
-    if(getTile(x,y+1,z) != 0){
-      var oY = y; // begin Y
-      var gtY = oY; // go-to-Y
-      for(var i=oY;i<128;i++){
-        if(getTile(x,i,z) == 0) {
-          gtY = i;
-          break;
-      	}
-      }
-      
-      for(var i=gtY;i>oY;i--)
-      {
-      	setTile(x,i+1,z,getTile(x,i,z));
-      }
-	}
-	setTile(x,y+1,z,pistonExtendId);
-  }
-}
-
 function pistonA(x, y, z, dirX, dirY, dirZ, hm){
   //clientMessage(x+" "+y+" "+z+" "+dirX+" "+dirY+" "+dirZ+" "+hm);
-  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){ 
+  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){
     if(getTile(x+dirX,y+dirY,z+dirZ) != 0){
       var oY = dirX==1?x:(dirY==1?y:z); // begin point
       var gtY = oY; // go-to-point
@@ -346,21 +346,21 @@ function pistonA(x, y, z, dirX, dirY, dirZ, hm){
         if(getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z)) == 0) {
           gtY = i;
           break;
-      	}
+       }
       }
       
-      for(var i=gtY;i>oY;i--)
+      for(var i=gtY-1;i>oY;i--)
       {
         setTile((dirX==1?i+1:x),(dirY==1?i+1:y),(dirZ==1?i+1:z), getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z)));
       }
-	}
-	setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
+    }
+    setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
   }
 }
 
 function pistonB(x, y, z, dirX, dirY, dirZ){
   
-  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){ 
+  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){
     if(getTile(x+dirX,y+dirY,z+dirZ) != 0){
       var oY = dirX==-1?x:(dirY==-1?y:z); // begin point
       var gtY = oY; // go-to-point
@@ -368,38 +368,18 @@ function pistonB(x, y, z, dirX, dirY, dirZ){
         if(getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z)) == 0) {
           gtY = i;
           break;
-      	}
+       }
       }
       
-      for(var i=gtY;i<oY;i++)
+      for(var i=gtY+1;i<oY;i++)
       {
         setTile((dirX==-1?i-1:x),(dirY==-1?i-1:y),(dirZ==-1?i-1:z), getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z)));
       }
-	}
-	setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
+    }
+    setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
   }
 }
 
-function pistonDown(x, y, z){
-  if(getTile(x,y-1,z) != pistonExtendId){ 
-    if(getTile(x,y-1,z) != 0){
-      var oY = y; // begin Y
-      var gtY = oY; // go-to-Y
-      for(var i=oY;i>0;i--){
-        if(getTile(x,i,z) == 0) {
-          gtY = i;
-          break;
-      	}
-      }
-      
-      for(var i=gtY;i<oY;i++)
-      {
-      	setTile(x,i-1,z,getTile(x,i,z));
-      }
-	}
-	setTile(x,y-1,z,pistonExtendId);
-  }
-}
 function door(x, y, z){
  setTile(x,y,z,0);
  setTile(x,y,z,1);
@@ -446,7 +426,7 @@ function modTick()
     }
   }else{
     if(wereOnPressurePlate){
-  	  if(getTile(getPlayerX(), getPlayerY()-1.6, getPlayerZ()) == pressurePlateId){
+      if(getTile(getPlayerX(), getPlayerY()-1.6, getPlayerZ()) == pressurePlateId){
         rsTick--;
         if(rsTick <= 0){
           prepare();
@@ -482,15 +462,15 @@ function modTick()
     }else{
       // Pressure Plates
       if(getTile(getPlayerX(), getPlayerY()-1.6, getPlayerZ()) == pressurePlateId){
-      	powerBlockX = getPlayerX();
-    	powerBlockY = getPlayerY()-1.6;
-    	powerBlockZ = getPlayerZ();
-    	ewtX = new Array();
-    	ewtY = new Array();
-    	ewtZ = new Array();
-    	
-    	wereOnPressurePlate = true;
-    	rsTick = 1;
+       powerBlockX = getPlayerX();
+       powerBlockY = getPlayerY()-1.6;
+       powerBlockZ = getPlayerZ();
+       ewtX = new Array();
+       ewtY = new Array();
+       ewtZ = new Array();
+    
+       wereOnPressurePlate = true;
+       rsTick = 1;
       }
     }
   }
