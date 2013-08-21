@@ -209,7 +209,7 @@ function pistonA(x, y, z, dirX, dirY, dirZ, hm){
       	}
       }
       
-      for(var i=gtY;i>oY;i--)
+      for(var i=gtY-1;i>oY;i--)
       {
         setTile((dirX==1?i+1:x),(dirY==1?i+1:y),(dirZ==1?i+1:z), getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z)));
       }
@@ -231,7 +231,7 @@ function pistonB(x, y, z, dirX, dirY, dirZ){
       	}
       }
       
-      for(var i=gtY;i<oY;i++)
+      for(var i=gtY+1;i<oY;i++)
       {
         setTile((dirX==-1?i-1:x),(dirY==-1?i-1:y),(dirZ==-1?i-1:z), getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z)));
       }
