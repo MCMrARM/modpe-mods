@@ -311,7 +311,7 @@ pistonDown(x,y,z);
         setTile(x-1,y,z,sticky?getTile(x-2,y,z):0);
         if(sticky)setTile(x-2,y,z,0);
       }else if(dir == 1){
-        setTile(x+1,y,z,sticky?getTile(x-2,y,z):0);
+        setTile(x+1,y,z,sticky?getTile(x+2,y,z):0);
         if(sticky)setTile(x+2,y,z,0);
       }else if(dir == 2){
         setTile(x,y,z-1,sticky?getTile(x,y,z-2):0);
