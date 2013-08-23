@@ -2,16 +2,11 @@ var powerLen = 14;
 var powerTime = 50;
 var redstoneTick = 20;
 
-var buttonId = 255;
-var leverId = 50; // torch, torch, torch. Is there any better solution?
-var repeatorId = 249;
-var wireId = 248;
+var buttonId = 22/*255*/;
+var leverId = 57/*31*/;
+var repeatorId = 41/*249*/;
+var wireId = 42/*248*/;
 var pWireId = 246;
-
-var aButtonId = 16;
-var aLeverId = 56;
-var aRepeatorId = 41;
-var aWireId = 103;
 
 var pistonId = 128;
 var sPistonId = 156;
@@ -28,163 +23,27 @@ var powerBlockX, powerBlockY, powerBlockZ;
 var pistonBlockX, pistonBlockY, pistonBlockZ;
 
 
-function clearCTable(x,y,z){
-  setTile(x-3, y+1, z-2, 0);
-  setTile(x-2, y+1, z-2, 0);
-  setTile(x-1, y+1, z-2, 0);
-  
-  setTile(x-3, y+1, z-1, 0);
-  setTile(x-2, y+1, z-1, 0);
-  setTile(x-1, y+1, z-1, 0);
-      
-  setTile(x-3, y+1, z, 0);
-  setTile(x-2, y+1, z, 0);
-  setTile(x-1, y+1, z, 0);
-}
-
 function useItem(x,y,z,itemId,blockId,side)
 {
-  if(blockId == aButtonId || blockId == aLeverId || itemId == aWireId){
-    // Use alternative scheme. Okay.
-    buttonId = aButtonId;
-    leverId = aLeverId;
-    repeatorId = aRepeatorId;
-    wireId = aWireId;
-  }
-  
-  if(blockId == 58 && itemId == wireId){
-    if(getTile(x, y, z-1) == 48 &&
-       
-       getTile(x-1, y, z) == 48 &&
-       getTile(x-2, y, z) == 48 &&
-       getTile(x-3, y, z) == 48 &&
-       
-       getTile(x-1, y, z-1) == 48 &&
-       getTile(x-2, y, z-1) == 48 &&
-       getTile(x-3, y, z-1) == 48 &&
-      
-             
-       getTile(x-1, y, z-2) == 48 &&
-       getTile(x-2, y, z-2) == 48 &&
-       getTile(x-3, y, z-2) == 48){
-      
-      // craft!
-      
-      var c1x1 = getTile(x-3, y+1, z-2);
-      var c2x1 = getTile(x-2, y+1, z-2);
-      var c3x1 = getTile(x-1, y+1, z-2);
-      
-      var c1x2 = getTile(x-3, y+1, z-1);
-      var c2x2 = getTile(x-2, y+1, z-1);
-      var c3x2 = getTile(x-1, y+1, z-1);
-      
-      var c1x3 = getTile(x-3, y+1, z);
-      var c2x3 = getTile(x-2, y+1, z);
-      var c3x3 = getTile(x-1, y+1, z);
-      
-      // Craft button:
-      // free - free - free
-      // free - stone - free
-      // free - free - free
-      
-      if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
-         c1x2 == 0 && c2x2 == 1 && c3x2 == 0 &&
-         c1x3 == 0 && c2x3 == 0 && c3x3 == 0){
-        clearCTable(x,y,z);
-        setTile(x, y+1, z-1, buttonId);
-      }
-      
-      // Craft lever:
-      // free - free - free
-      // free - plank - free
-      // free - stone - free
-      
-      if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
-         c1x2 == 0 && c2x2 == 5 && c3x2 == 0 &&
-         c1x3 == 0 && c2x3 == 1 && c3x3 == 0){
-        clearCTable(x,y,z);
-        setTile(x, y+1, z-1, leverId);
-      }
-      
-      // Craft repeator:
-      // free - free - free
-      // lever - wire - lever
-      // stone - stone - stone
-      
-      if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
-         c1x2 == leverId && c2x2 == wireId && c3x2 == leverId &&
-         c1x3 == 1 && c2x3 == 1 && c3x3 == 1){
-        clearCTable(x,y,z);
-        setTile(x, y+1, z-1, repeatorId);
-      }
-      
-      // Craft piston:
-      // plank - plank - plank
-      // cobble - iron - cobble
-      // cobble - wire - cobble
-      
-      
-      if(c1x1 == 5 && c2x1 == 5 && c3x1 == 5 &&
-         c1x2 == 4 && c2x2 == 42 && c3x2 == 4 &&
-         c1x3 == 4 && c2x3 == wireId && c3x3 == 4){
-        clearCTable(x,y,z);
-        setTile(x, y+1, z-1, pistonId);
-      }
-      
-      // Craft sticky piston:
-      // free - free   - free
-      // free - leaves - free
-      // free - piston - free
-      
-      
-      if(c1x1 == 0 && c2x1 == 0        && c3x1 == 0 &&
-         c1x2 == 0 && c2x2 == 18       && c3x2 == 0 &&
-         c1x3 == 0 && c2x3 == pistonId && c3x3 == 0){
-        clearCTable(x,y,z);
-        setTile(x, y+1, z-1, pistonId);
-      }
-      
-      preventDefault();
-    }else{
-      // make a 3x3 square for redstone crafting
-      // and yes, it doesn't support other items crafting, sorry
-      // and yes, I'm going to create a mod for it
-      setTile(x, y-1, z, 48);
-      setTile(x-1, y-1, z, 48);
-      setTile(x+1, y-1, z, 48);
-      
-      setTile(x, y-1, z-1, 48);
-      setTile(x-1, y-1, z-1, 48);
-      setTile(x+1, y-1, z-1, 48);
-      
-      setTile(x, y-1, z+1, 48);
-      setTile(x-1, y-1, z+1, 48);
-      setTile(x+1, y-1, z+1, 48);
-      
-      
-      setTile(x+2, y-1, z, 48);
-      setTile(x+2, y-1, z+1, 58);
-      
-      setTile(x, y, z, 0);
-      
-      preventDefault();
-    }
-  }else if(blockId == buttonId){
-    if(buttonId==255?(getTile(x,y-1,z)!=48):true){
-      powerBlockX = x;
-      powerBlockY = y;
-      powerBlockZ = z
-      ewtX = new Array();
-      ewtY = new Array();
-      ewtZ = new Array();
-      
-      powerTimeout = powerTime;
-      rsTick = 1;
-      power = true;
-      preventDefault();
-    }
+  // Lapis Lazuli - Powerer - 22
+  // Cable unpowered - Iron Block - 42
+  // Cable powered - Glowing Obdisan - 246
+  // Repeator - Gold Block - 41
+ 
+  if(blockId == buttonId){
+  	powerBlockX = x;
+    powerBlockY = y;
+    powerBlockZ = z
+    ewtX = new Array();
+    ewtY = new Array();
+    ewtZ = new Array();
+    
+    powerTimeout = powerTime;
+    rsTick = 1;
+    power = true;
+    preventDefault();
   }else if(blockId == leverId){
-   powerBlockX = x;
+  	powerBlockX = x;
     powerBlockY = y;
     powerBlockZ = z
     ewtX = new Array();
@@ -206,7 +65,7 @@ function useItem(x,y,z,itemId,blockId,side)
 }
 function attackHook(attacker, victim)
 {
-//Your Code Here
+	//Your Code Here
 }
 
 var wereThereX, wereThereY, wereThereZ;
@@ -302,8 +161,8 @@ function goPowerA(enable,x,y,z,len,dir){
       }else if(dir == 5){
         pistonA(x,y,z,0,1,0,128);
       }/*else if(dir == 4){
-pistonDown(x,y,z);
-}*/
+        pistonDown(x,y,z);
+      }*/
     }else{
       var sticky = (getTile(x,y,z) == sPistonId);
       
@@ -336,47 +195,48 @@ pistonDown(x,y,z);
   }
 }
 
+
 function pistonA(x, y, z, dirX, dirY, dirZ, hm){
-  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){
+  //clientMessage(x+" "+y+" "+z+" "+dirX+" "+dirY+" "+dirZ+" "+hm);
+  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){ 
     if(getTile(x+dirX,y+dirY,z+dirZ) != 0){
       var oY = dirX==1?x:(dirY==1?y:z); // begin point
       var gtY = oY; // go-to-point
       for(var i=oY;i<hm;i++){
-        var theTile = getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z));
-        if(theTile == 0 || theTile == 8 || theTile == 9 || theTile == 10 || theTile == 11) {
+        if(getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z)) == 0) {
           gtY = i;
           break;
-       }
+      	}
       }
       
       for(var i=gtY-1;i>oY;i--)
       {
         setTile((dirX==1?i+1:x),(dirY==1?i+1:y),(dirZ==1?i+1:z), getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z)));
       }
-    }
-    setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
+	}
+	setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
   }
 }
 
 function pistonB(x, y, z, dirX, dirY, dirZ){
-  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){
+  
+  if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){ 
     if(getTile(x+dirX,y+dirY,z+dirZ) != 0){
       var oY = dirX==-1?x:(dirY==-1?y:z); // begin point
       var gtY = oY; // go-to-point
       for(var i=oY;i>0;i--){
-        var theTile = getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z));
-        if(theTile == 0 || theTile == 8 || theTile == 9 || theTile == 10 || theTile == 11) {
+        if(getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z)) == 0) {
           gtY = i;
           break;
-       }
+      	}
       }
       
       for(var i=gtY+1;i<oY;i++)
       {
         setTile((dirX==-1?i-1:x),(dirY==-1?i-1:y),(dirZ==-1?i-1:z), getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z)));
       }
-    }
-    setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
+	}
+	setTile(x+dirX,y+dirY,z+dirZ,pistonExtendId);
   }
 }
 
@@ -426,7 +286,7 @@ function modTick()
     }
   }else{
     if(wereOnPressurePlate){
-      if(getTile(getPlayerX(), getPlayerY()-1.6, getPlayerZ()) == pressurePlateId){
+  	  if(getTile(getPlayerX(), getPlayerY()-1.6, getPlayerZ()) == pressurePlateId){
         rsTick--;
         if(rsTick <= 0){
           prepare();
@@ -462,15 +322,15 @@ function modTick()
     }else{
       // Pressure Plates
       if(getTile(getPlayerX(), getPlayerY()-1.6, getPlayerZ()) == pressurePlateId){
-       powerBlockX = getPlayerX();
-       powerBlockY = getPlayerY()-1.6;
-       powerBlockZ = getPlayerZ();
-       ewtX = new Array();
-       ewtY = new Array();
-       ewtZ = new Array();
-    
-       wereOnPressurePlate = true;
-       rsTick = 1;
+      	powerBlockX = getPlayerX();
+    	powerBlockY = getPlayerY()-1.6;
+    	powerBlockZ = getPlayerZ();
+    	ewtX = new Array();
+    	ewtY = new Array();
+    	ewtZ = new Array();
+    	
+    	wereOnPressurePlate = true;
+    	rsTick = 1;
       }
     }
   }

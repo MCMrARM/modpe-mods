@@ -197,16 +197,16 @@ function goPowerA(enable,x,y,z,len,dir){
 
 
 function pistonA(x, y, z, dirX, dirY, dirZ, hm){
-  //clientMessage(x+" "+y+" "+z+" "+dirX+" "+dirY+" "+dirZ+" "+hm);
   if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){ 
     if(getTile(x+dirX,y+dirY,z+dirZ) != 0){
       var oY = dirX==1?x:(dirY==1?y:z); // begin point
       var gtY = oY; // go-to-point
       for(var i=oY;i<hm;i++){
-        if(getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z)) == 0) {
+        var theTile = getTile((dirX==1?i:x),(dirY==1?i:y),(dirZ==1?i:z));
+        if(theTile == 0 || theTile == 8 || theTile == 9 || theTile == 10 || theTile == 11) {
           gtY = i;
           break;
-      	}
+        }
       }
       
       for(var i=gtY-1;i>oY;i--)
@@ -219,13 +219,13 @@ function pistonA(x, y, z, dirX, dirY, dirZ, hm){
 }
 
 function pistonB(x, y, z, dirX, dirY, dirZ){
-  
   if(getTile(x+dirX,y+dirY,z+dirZ) != pistonExtendId){ 
     if(getTile(x+dirX,y+dirY,z+dirZ) != 0){
       var oY = dirX==-1?x:(dirY==-1?y:z); // begin point
       var gtY = oY; // go-to-point
       for(var i=oY;i>0;i--){
-        if(getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z)) == 0) {
+        var theTile = getTile((dirX==-1?i:x),(dirY==-1?i:y),(dirZ==-1?i:z));
+        if(theTile == 0 || theTile == 8 || theTile == 9 || theTile == 10 || theTile == 11) {
           gtY = i;
           break;
       	}
