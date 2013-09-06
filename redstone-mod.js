@@ -2,22 +2,22 @@ var powerLen = 14;
 var powerTime = 50;
 var redstoneTick = 20;
 
-var buttonId = 255;
+var buttonId = 22;
 var leverId = 50; // torch, torch, torch. Is there any better solution?
-var repeatorId = 249;
-var wireId = 248;
-var pWireId = 246;
+var repeatorId = 35;
+var wireId = 73;
+var pWireId = 74;
 
 var aButtonId = 16;
-var aLeverId = 56;
-var aRepeatorId = 41;
-var aWireId = 103;
+var aLeverId = 40;
+var aRepeatorId = 15;
+var aWireId = 14;
 
 var pistonId = 128;
 var sPistonId = 156;
 var pistonExtendId = 253;
 
-var pressurePlateId = 44;
+var pressurePlateId = 78;
 
 /* CODE */
 
