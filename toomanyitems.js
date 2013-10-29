@@ -171,9 +171,9 @@ var CAT_ARMOUR_ITEMS = [
   {name: "Chainmail Chestplate", id: 303, data: 0},
   {name: "Chainmail Leggings", id: 304, data: 0},
   {name: "Chainmail Boots", id: 305, data: 0},
-  {name: "Leather Helmet", id: 298, data: 0},
-  {name: "Leather Chestplate", id: 299, data: 0},
-  {name: "Leather Leggings", id: 300, data: 0},
+  {name: "Leather Cap", id: 298, data: 0},
+  {name: "Leather Tunic", id: 299, data: 0},
+  {name: "Leather Pants", id: 300, data: 0},
   {name: "Leather Boots", id: 301, data: 0}];
 var CAT_TOOLS = 4;
 var CAT_TOOLS_ITEMS = [
@@ -255,7 +255,7 @@ var CAT_ITEMS_ITEMS = [
   {name: "Bone", id: 352, data: 0},
   {name: "String", id: 287, data: 0},
   {name: "Leather", id: 334, data: 0},
-  {name: "Featcher", id: 288, data: 0},
+  {name: "Feather", id: 288, data: 0},
   {name: "Sugar", id: 353, data: 0},
   {name: "Gunpowder", id: 289, data: 0},
   {name: "Wheat", id: 296, data: 0},
@@ -273,7 +273,7 @@ var CAT_ITEMS_ITEMS = [
   {name: "Compass", id: 345, data: 0},
   {name: "Clock", id: 347, data: 0},
   {name: "Glowstone Dust", id: 348, data: 0},
-  {name: "Melon slice", id: 360, data: 0}];
+  {name: "Melon Slice", id: 360, data: 0}];
 var CAT_SPAWN = 8;
 var CAT_SPAWN_ITEMS = [
   {name: "Spawn Chicken", id: 383, data: 10},
@@ -315,7 +315,7 @@ var CAT_MISCELLANEOUS_ITEMS = [
   {name: "Birch Leaves", id: 18, data: 2},
   {name: "Bed", id: 26, data: 0},
   {name: "Cobweb", id: 30, data: 0},
-  {name: "Dead Shurb", id: 31, data: 0},
+  {name: "Dead Shrub", id: 31, data: 0},
   {name: "TNT", id: 46, data: 0},
 // Fire (51)
 // Crops Block (59)
