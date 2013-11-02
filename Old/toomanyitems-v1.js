@@ -1,7 +1,5 @@
 var btnWindow = null;
 var mainMenu = null;
-var btnMenu = null;
-var btnMenuSub = null;
 var subMenu = null;
 var infoMenu = null;
 
@@ -9,9 +7,6 @@ var addToInventory = false;
 var addId;
 var addDmg;
 var addCount;
-var ride = false;
-var riding = false;
-var ridingAnimal;
 
 function dip2px(ctx, dips){
  return Math.ceil(dips * ctx.getResources().getDisplayMetrics().density);
@@ -23,6 +18,7 @@ function newLevel(){
 	var ctx = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
 	ctx.runOnUiThread(new java.lang.Runnable({ run: function() {
 		try{
+			btnWindow = new android.widget.PopupWindow();
 			var layout = new android.widget.RelativeLayout(ctx);
 			var button = new android.widget.Button(ctx);
 			button.setText("M");
@@ -35,53 +31,16 @@ function newLevel(){
 			}));
 			layout.addView(button);
 			
-			
-			btnWindow = new android.widget.PopupWindow(layout, dip2px(ctx, 48), dip2px(ctx, 48));
-		//	btnWindow.setContentView(layout);
-		//	btnWindow.setWidth(dip2px(ctx, 48));
-		//	btnWindow.setHeight(dip2px(ctx, 48));
+			btnWindow.setContentView(layout);
+			btnWindow.setWidth(dip2px(ctx, 48));
+			btnWindow.setHeight(dip2px(ctx, 48));
 			btnWindow.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
-			var flags;
-			var bx = 0;
-			var by = 0;
-			var btnPosC = ModPE.readData("btnPos");
-			if(btnPosC == "0"){
-                flags = android.view.Gravity.TOP | android.view.Gravity.LEFT;
-                by = dip2px(ctx, 20);
-			}else if(btnPosC == "1"){
-                flags = android.view.Gravity.TOP | android.view.Gravity.RIGHT;
-                bx = dip2px(ctx, 38);
-                
-                btnWindow.setWidth(dip2px(ctx, 38));
-			    btnWindow.setHeight(dip2px(ctx, 38));
-			}else if(btnPosC == "2"){
-                flags = android.view.Gravity.LEFT | android.view.Gravity.BOTTOM;
-			}else if(btnPosC == "3" || btnPosC == ""){
-                flags = android.view.Gravity.RIGHT | android.view.Gravity.BOTTOM;
-			}
-			btnWindow.showAtLocation(ctx.getWindow().getDecorView(), flags, bx, by);
+			btnWindow.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.BOTTOM, 0, 0);
 		}catch(err){
 			print("Failed to show button.");
 		}
 	} }));
   
-}
-
-function compareMobs(mob1, mob2){
-    if(mob1 == null || mob2 == null) return false;
-    
-    if(Entity.getX(mob1) == Entity.getX(mob2) &&
-        Entity.getY(mob1) == Entity.getY(mob2) &&
-        Entity.getZ(mob1) == Entity.getZ(mob2) &&
-        Entity.getEntityTypeId(mob1) == Entity.getEntityTypeId(mob2))
-        return true;
-        
-    return false;
-}
-
-function attackHook(attacker, entity){
-    if(riding && compareMobs(entity, ridingAnimal)) { rideAnimal(attacker, entity); riding = false; preventDefault(); }
-    else if(ride){ rideAnimal(attacker, entity); riding = true; ridingAnimal = entity; clientMessage("To stop riding tap the animal again."); ride = false; preventDefault(); }
 }
 
 var CAT_STARTER_KIT = 0;
@@ -531,7 +490,7 @@ function addMenuCategory(ctx, layout, text, catid){
 	layout.addView(button);
 }
 
-function makeMenu(ctx, menu, layout, main){
+function makeMenu(ctx, menu, layout){
 	var mlayout = new android.widget.RelativeLayout(ctx); // main layout
 	var xbutton = new android.widget.Button(ctx);
 	xbutton.setText("x");
@@ -543,10 +502,6 @@ function makeMenu(ctx, menu, layout, main){
 		onClick: function(viewarg) {
 			menu.dismiss();
 			menu = null;
-			if(main){
-			    btnMenu.dismiss();
-			    btnMenu = null;
-			}
 		}
 	}));
 	
@@ -562,157 +517,11 @@ function makeMenu(ctx, menu, layout, main){
 	return mlayout;
 }
 
-function showButtons(ctx){
-    function updateTime(){
-        if(currSurvival){
-            var ltime = Level.getTime()-Math.floor(Level.getTime()/19200)*19200;
-            day = ltime < (19200/2);
-            time.setText(day?"Day":"Night");
-        }else{
-            time.setText("Day");
-            day = true;
-        }
-    }
-    var menu = new android.widget.PopupWindow();
-	btnMenu = menu;
-	
-	var layout = new android.widget.LinearLayout(ctx);
-	layout.setOrientation(0);
-	
-	var heal = new android.widget.Button(ctx);
-	heal.setText("Heal");
-	heal.setOnClickListener(new android.view.View.OnClickListener({
-		onClick: function(viewarg) {
-			Player.setHealth(20);
-		}
-	}));
-	layout.addView(heal);
-	
-	var gamemode = new android.widget.Button(ctx);
-	var currSurvival = Level.getGameMode()==0;
-	gamemode.setText(currSurvival?"Survival":"Creative");
-	gamemode.setOnClickListener(new android.view.View.OnClickListener({
-		onClick: function(viewarg) {
-			currSurvival = !currSurvival;
-			Level.setGameMode(currSurvival?0:1);
-			updateTime();
-			gamemode.setText(currSurvival?"Survival":"Creative");
-		}
-	}));
-	layout.addView(gamemode);
-	
-	var day = true;
-	var time = new android.widget.Button(ctx);
-	time.setText("Day");
-	time.setOnClickListener(new android.view.View.OnClickListener({
-        onClick: function(viewarg) {
-            try{
-                day = !day;
-                //var ti = Math.floor(Level.getTime()/19200)*19200;
-                var newTime = day?0:8280;
-                Level.setTime(newTime);
-                updateTime();
-            }catch(e){
-                print("Here is the error: "+e);
-            }
-		}
-	}));
-	updateTime();
-	layout.addView(time);
-	
-	var more = new android.widget.Button(ctx);
-	more.setText("...");
-	more.setOnClickListener(new android.view.View.OnClickListener({
-		onClick: function(viewarg) {
-			openMore(ctx, more.getLeft(), more.getTop()+more.getHeight());
-		}
-	}));
-	layout.addView(more);
-	
-	menu.setContentView(layout);
-	menu.setWidth(-2);
-	menu.setHeight(-2);
-	menu.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.LEFT | android.view.Gravity.TOP, 0, 0);
-}
-
-function openMore(ctx, x, y){
-    var menu = new android.widget.PopupWindow();
-    menu.setFocusable(true);
-	btnMenuSub = menu;
-	
-	var layout = new android.widget.LinearLayout(ctx);
-	layout.setOrientation(1);
-	
-	var killBtn = new android.widget.Button(ctx);
-	killBtn.setText("Kill");
-    killBtn.setOnClickListener(new android.view.View.OnClickListener({
-		onClick: function(viewarg) {
-		    Player.setHealth(0);
-		}
-	}));
-	layout.addView(killBtn);
-	
-	var spawnBtn = new android.widget.Button(ctx);
-	spawnBtn.setText("Set spawn");
-	spawnBtn.setOnClickListener(new android.view.View.OnClickListener({
-		onClick: function(viewarg) {
-		    Level.setSpawn(Player.getX(), Player.getY(), Player.getZ());
-		    android.widget.Toast.makeText(ctx, "Your spawn has been set to current position.", 0).show();
-		}
-	}));
-	layout.addView(spawnBtn);
-	
-	var rideBtn = new android.widget.Button(ctx);
-	rideBtn.setText("Ride animal");
-	rideBtn.setOnClickListener(new android.view.View.OnClickListener({
-		onClick: function(viewarg) {
-		    ride = true;
-		    android.widget.Toast.makeText(ctx, "Tap the animal you want to ride.", 0).show();
-		}
-	}));
-	layout.addView(rideBtn);
-	
-	var placeBtn = new android.widget.Button(ctx);
-	placeBtn.setText("Select button position");
-	placeBtn.setOnClickListener(new android.view.View.OnClickListener({
-		onClick: function(viewarg) {
-		    try{
-			var arr = java.lang.reflect.Array.newInstance(java.lang.CharSequence, 4);
-			arr[0] = "Top-left corner, below heart bar";
-			arr[1] = "Top-right corner, after chat button";
-			arr[2] = "Bottom-left corner";
-			arr[3] = "Bottom-right corner";
-			
-			var builder = new android.app.AlertDialog.Builder(ctx);
-			builder.setTitle("Button position");
-			builder.setItems(arr, new android.content.DialogInterface.OnClickListener({
-                onClick: function(dialog, which) {
-                    ModPE.saveData("btnPos", which);
-                    android.widget.Toast.makeText(ctx, "Reload the world to apply.", 0).show();
-                }
-            }));
-            builder.show();
-		    }catch(err){
-		        print("e/"+err);
-		    }
-		}
-	}));
-	layout.addView(placeBtn);
-	
-	
-	menu.setContentView(layout);
-	menu.setWidth(dip2px(ctx,150));
-	menu.setHeight(dip2px(ctx,250));
-	menu.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.GRAY));
-	menu.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.LEFT | android.view.Gravity.TOP, x, y);
-}
-
 function openMenu(){
 	var ctx = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
 	try{
-	    showButtons(ctx);
 		var menu = new android.widget.PopupWindow();
-		//menu.setFocusable(true); <-- I can't find better solution
+		menu.setFocusable(true);
 		mainMenu = menu;
 		
 		var layout = new android.widget.LinearLayout(ctx);
@@ -743,7 +552,7 @@ function openMenu(){
 		addMenuCategory(ctx, layout, "Miscellaneous", CAT_MISCELLANEOUS_ITEMS);
 		addMenuCategory(ctx, layout, "Custom", null);
 		
-		var mlayout = makeMenu(ctx, menu, layout, true);
+		var mlayout = makeMenu(ctx, menu, layout);
 		
 		menu.setContentView(mlayout);
 		//btnWindow.setWidth(100);
@@ -767,10 +576,6 @@ function leaveGame(){
 			mainMenu.dismiss();
 			mainMenu = null;
 		}
-		if(btnMenu != null){
-			btnMenu.dismiss();
-			btnMenu = null;
-		}
 		if(subMenu != null){
 			subMenu.dismiss();
 			subMenu = null;
@@ -780,46 +585,11 @@ function leaveGame(){
 			infoMenu = null;
 		}
 	}}));
-	riding = false;
 }
 
 function modTick(){
 	if(addToInventory){
 		addItemInventory(addId, addCount, addDmg);
 		addToInventory = false;
-	}
-	
-	if(riding){
-        // thanks to 500ISE
-        
-        var playerYaw = getYaw();
-        var playerPitch = getPitch();
-        //setRot(ridingAnimal, playerYaw, 0);
-        var velX = -1 * Math.sin(playerYaw / 180 * Math.PI) * 0.2;
-		var velZ = Math.cos(playerYaw / 180 * Math.PI) * 0.2;
-		var velY = 0;
-		var jumpVel = 0.2;
-		if(velX > 0){
-		    if (getTile(Player.getX()+1, Math.floor(Entity.getY(ridingAnimal)), Player.getZ()) != 0)
-		        velY = jumpVel;
-		}else{
-		    if(getTile(Player.getX()-1, Math.floor(Entity.getY(ridingAnimal)), Player.getZ()) != 0)
-		        velY = jumpVel;
-		}
-		
-		if(velZ > 0){
-		    if(getTile(Player.getX(), Math.floor(Entity.getY(ridingAnimal)), Player.getZ()+1) != 0)
-		        velY = jumpVel;
-		}else{
-		    if(getTile(Player.getX(), Math.floor(Entity.getY(ridingAnimal)), Player.getZ()-1) != 0)
-		        velY = jumpVel;
-		}
-		
-		if(velY == 0 && getTile(Player.getX(), Player.getY()-2, Player.getZ()) == 0) velY = -jumpVel;
-		//clientMessage(velY);
-		//var velY = Math.sin((playerPitch - 180) / 180 * Math.PI) * ANIMAL_VERTICAL_SPEED;
-		setVelX(ridingAnimal, velX);
-		setVelY(ridingAnimal, velY);
-		setVelZ(ridingAnimal, velZ);
 	}
 }
