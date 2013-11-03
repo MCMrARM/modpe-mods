@@ -1,8 +1,3 @@
-/*
- Too Many Items Script by MrARM
- Licensed on MIT License
-*/
-
 var btnWindow = null;
 var mainMenu = null;
 var btnMenu = null;
@@ -17,7 +12,6 @@ var addCount;
 var ride = false;
 var riding = false;
 var ridingAnimal;
-var spawnOnTap = -1;
 
 function dip2px(ctx, dips){
  return Math.ceil(dips * ctx.getResources().getDisplayMetrics().density);
@@ -36,7 +30,6 @@ function newLevel(){
 			//button.setHeight(100);
 			button.setOnClickListener(new android.view.View.OnClickListener({
 				onClick: function(viewarg) {
-				    spawnOnTap = -1;
 					openMenu();
 				}
 			}));
@@ -89,13 +82,6 @@ function compareMobs(mob1, mob2){
 function attackHook(attacker, entity){
     if(riding && compareMobs(entity, ridingAnimal)) { rideAnimal(attacker, entity); riding = false; preventDefault(); }
     else if(ride){ rideAnimal(attacker, entity); riding = true; ridingAnimal = entity; clientMessage("To stop riding tap the animal again."); ride = false; preventDefault(); }
-}
-
-function useItem(x, y, z, itemid, blockid, side, itemDamage, blockDamage){
-    if(spawnOnTap != -1){
-        Level.spawnMob(x-(side==4?1:0)+(side==5?1:0)+0.5,y-(side==0?1:0)+(side==1?1:0)+0.5,z-(side==2?1:0)+(side==3?1:0)+0.5,spawnOnTap,null);
-        preventDefault();
-    }
 }
 
 var CAT_STARTER_KIT = 0;
@@ -485,11 +471,7 @@ function addMenuItem(ctx, layout, text, id, data){
 	//button.setHeight(100);
 	button.setOnClickListener(new android.view.View.OnClickListener({
 		onClick: function(viewarg) {
-		    if(Level.getGameMode() == 1){
-		        Entity.setCarriedItem(getPlayerEnt(), id, 1, data);
-		    }else{
-			    openInfoDialogMenu(ctx, id, data);
-		    }
+			openInfoDialogMenu(ctx, id, data);
 		}
 	}));
 	layout.addView(button);
@@ -653,34 +635,6 @@ function showButtons(ctx){
 	menu.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.LEFT | android.view.Gravity.TOP, 0, 0);
 }
 
-function addToArray(arr, sindex, entries){
-    for(var i=0;i<entries.length;i++)
-        arr[sindex+i] = entries[i];
-}
-
-function name2id(name){
-    if(name == "Chicken") return 10;
-    if(name == "Cow") return 11;
-    if(name == "Pig") return 12;
-    if(name == "Sheep") return 13;
-    
-    if(name == "Zombie") return 32;
-    if(name == "Creeper") return 33;
-    if(name == "Skeleton") return 34;
-    if(name == "Spider") return 35;
-    if(name == "Zombie Pigman") return 36;
-    
-    if(name == "Dropped item") return 64;
-    if(name == "Primed TNT") return 65;
-    
-    if(name == "Arrow") return 80;
-    if(name == "Snowball") return 81;
-    if(name == "Egg") return 82;
-    if(name == "Painting") return 83;
-    
-    return -1;
-}
-
 function openMore(ctx, x, y){
     var menu = new android.widget.PopupWindow();
     menu.setFocusable(true);
@@ -717,100 +671,6 @@ function openMore(ctx, x, y){
 		}
 	}));
 	layout.addView(rideBtn);
-	
-	var entBtn = new android.widget.Button(ctx);
-	entBtn.setText("Entity manager");
-	entBtn.setOnClickListener(new android.view.View.OnClickListener({
-        onClick: function(viewarg) {
-            try{
-                var arr = java.lang.reflect.Array.newInstance(java.lang.CharSequence, 6);
-                arr[0] = "Spawn entities of type...";
-                arr[1] = "Age all animals of type...";
-                arr[2] = "Set all entities to fire of type...";
-                arr[3] = "Remove all entities of type...";
-                arr[4] = "Make mobs weak of type...";
-                arr[5] = "Make mobs ultra strong of type...";
-                
-                var builder = new android.app.AlertDialog.Builder(ctx);
-                builder.setTitle("Entity manager");
-                builder.setItems(arr, new android.content.DialogInterface.OnClickListener({
-                    onClick: function(dialog, which) {
-                        atotal = 4;
-                        if(which == 0){
-                            atotal = 13;
-                        }else if(which == 2){
-                            atotal = 10;
-                        }else if(which == 3){
-                            atotal = 16;
-                        }else if(which == 4 || which == 5){
-                            atotal = 9;
-                        }
-                        var arre = java.lang.reflect.Array.newInstance(java.lang.CharSequence, atotal);
-                        var currAdded = 4;
-                        addToArray(arre, 0, ["Chicken", "Cow", "Pig", "Sheep"]);
-                        
-                        if(which == 0 || which == 2 || which == 3 || which == 4 || which == 5) {
-                            addToArray(arre, currAdded, ["Zombie", "Creeper", "Skeleton", "Spider", "Zombie Pigman"]);
-                            currAdded += 5;
-                        }
-                        
-                        if(which == 2 || which == 3) {
-                            addToArray(arre, currAdded, ["Dropped item"]);
-                            currAdded += 1;
-                        }
-                        
-                        if(which == 0){
-                            addToArray(arre, currAdded, ["Primed TNT", "Arrow", "Snowball", "Egg"]);
-                            currAdded += 4;
-                        }
-                        
-                        if(which == 3) {
-                            addToArray(arre, currAdded, ["Primed TNT", "Falling block", "Arrow", "Snowball", "Egg", "Painting"]);
-                            currAdded += 6;
-                        }
-                        
-                        var builder2 = new android.app.AlertDialog.Builder(ctx);
-                        builder2.setTitle("Select entity type...");
-                        builder2.setItems(arre, new android.content.DialogInterface.OnClickListener({
-                            onClick: function(dialog2, which2) {
-                                var eId = name2id(arre[which2]);
-                                if(which == 0){
-                                    spawnOnTap = eId;
-                                    clientMessage("Tap on blocks to spawn entities. To stop tap the main button.");
-                                }else if(which == 1){
-                                    var aarr = java.lang.reflect.Array.newInstance(java.lang.CharSequence, 2);
-                                    aarr[0] = "Baby";
-                                    aarr[1] = "Full-grown";
-                                    
-                                    var builder3 = new android.app.AlertDialog.Builder(ctx);
-                                    builder3.setTitle("Age");
-                                    builder3.setItems(aarr, new android.content.DialogInterface.OnClickListener({
-                                        onClick: function(dialog3, which3) {
-                                            ageAll(eId, which3==0?-24000:0);
-                                        }
-                                    }));
-                                    builder3.show();
-                                }else if(which == 2){
-                                    fireAll(eId, 10);
-                                }else if(which == 3){
-                                    killAll(eId);
-                                }else if(which == 4){
-                                    healAll(eId, 1);
-                                }else if(which == 5){
-                                    healAll(eId, 50);
-                                }
-                            }
-                        }));
-                        builder2.show();
-                    }
-                }));
-                builder.show();
-		    }catch(err){
-		        print("e/"+err);
-		    }
-		}
-	}));
-	layout.addView(entBtn);
 	
 	var placeBtn = new android.widget.Button(ctx);
 	placeBtn.setText("Select button position");
@@ -962,42 +822,4 @@ function modTick(){
 		setVelY(ridingAnimal, velY);
 		setVelZ(ridingAnimal, velZ);
 	}
-}
-
-
-// MOB MANAGER
-var entities = [];
-function entityAddedHook(ent){
-    entities.push(ent);
-}
-function entityRemovedCallback(ent){
-    entities.splice(entities.indexOf(ent));
-}
-function killAll(entType){
-    for(var i=0;i<entities.length;i++){
-        if(Entity.getEntityTypeId(entities[i]) == entType){
-            Entity.remove(entities[i]);
-        }
-    }
-}
-function ageAll(entType, age){
-    for(var i=0;i<entities.length;i++){
-        if(Entity.getEntityTypeId(entities[i]) == entType){
-            Entity.setAnimalAge(entities[i], age);
-        }
-    }
-}
-function fireAll(entType, time){
-    for(var i=0;i<entities.length;i++){
-        if(Entity.getEntityTypeId(entities[i]) == entType){
-            Entity.setFireTicks(entities[i], time);
-        }
-    }
-}
-function healAll(entType, lives){
-    for(var i=0;i<entities.length;i++){
-        if(Entity.getEntityTypeId(entities[i]) == entType){
-            Entity.setHealth(entities[i], lives);
-        }
-    }
 }
