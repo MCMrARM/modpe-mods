@@ -167,7 +167,7 @@ function useItem(x,y,z,itemId,blockId,side)
       // stone - stone - stone
       
       if(c1x1 == 0 && c2x1 == 0 && c3x1 == 0 &&
-         c1x2 == leverId && c2x2 == (wireId && Level.getData(x-2, y+1, z-1) == extraDataWire) && c3x2 == leverId &&
+         c1x2 == leverId && c2x2 == wireId && Level.getData(x-2, y+1, z-1) == extraDataWire && c3x2 == leverId &&
          c1x3 == 1 && c2x3 == 1 && c3x3 == 1){
         clearCTable(x,y,z);
         setTile(x, y+1, z-1, repeatorId, extraData);
