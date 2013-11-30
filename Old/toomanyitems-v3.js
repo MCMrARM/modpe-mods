@@ -384,9 +384,9 @@ var CAT_MISCELLANEOUS_ITEMS = [
 
 function openInfoDialogMenu(ctx, id, damage){
 	try{
-		//var menu = new android.widget.PopupWindow();
-		//menu.setFocusable(true);
-		//infoMenu = menu;
+		var menu = new android.widget.PopupWindow();
+		menu.setFocusable(true);
+		infoMenu = menu;
 		
 		var layout = new android.widget.LinearLayout(ctx);
 		layout.setOrientation(1);
@@ -465,16 +465,12 @@ function openInfoDialogMenu(ctx, id, damage){
 		}));
 		layout.addView(add);
 		
-		var menu = new android.widget.PopupWindow(layout, ctx.getWindowManager().getDefaultDisplay().getWidth()/2, ctx.getWindowManager().getDefaultDisplay().getHeight());
 		var mlayout = makeMenu(ctx, menu, layout);
+		
 		menu.setContentView(mlayout);
-		//menu = new android.widget.PopupWindow(mlayout, ctx.getWindowManager().getDefaultDisplay().getWidth()/2, ctx.getWindowManager().getDefaultDisplay().getHeight());
-		menu.setFocusable(true);
-		infoMenu = menu;
-		//menu.setContentView(mlayout);
 		//btnWindow.setWidth(100);
-		//menu.setWidth(ctx.getWindowManager().getDefaultDisplay().getWidth()/2);
-		//menu.setHeight(ctx.getWindowManager().getDefaultDisplay().getHeight());
+		menu.setWidth(ctx.getWindowManager().getDefaultDisplay().getWidth()/2);
+		menu.setHeight(ctx.getWindowManager().getDefaultDisplay().getHeight());
 		menu.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.BLACK));
 		menu.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
 	}catch(err){
@@ -501,9 +497,9 @@ function addMenuItem(ctx, layout, text, id, data){
 
 function openSubMenu(ctx, cname, cat){
 	try{
-		//var menu = new android.widget.PopupWindow();
-		//menu.setFocusable(true);
-		//subMenu = menu;
+		var menu = new android.widget.PopupWindow();
+		menu.setFocusable(true);
+		subMenu = menu;
 		
 		var layout = new android.widget.LinearLayout(ctx);
 		layout.setOrientation(1);
@@ -523,14 +519,12 @@ function openSubMenu(ctx, cname, cat){
 		for(var i=0;i<cat.length;i++)
 			addMenuItem(ctx, layout, cat[i].name, cat[i].id, cat[i].data);
 		
-		var menu = new android.widget.PopupWindow(layout, ctx.getWindowManager().getDefaultDisplay().getWidth()/2, ctx.getWindowManager().getDefaultDisplay().getHeight());
 		var mlayout = makeMenu(ctx, menu, layout);
+		
 		menu.setContentView(mlayout);
-		menu.setFocusable(true);
-		subMenu = menu;
 		//btnWindow.setWidth(100);
-		//menu.setWidth(ctx.getWindowManager().getDefaultDisplay().getWidth()/2);
-		//menu.setHeight(ctx.getWindowManager().getDefaultDisplay().getHeight());
+		menu.setWidth(ctx.getWindowManager().getDefaultDisplay().getWidth()/2);
+		menu.setHeight(ctx.getWindowManager().getDefaultDisplay().getHeight());
 		menu.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.BLACK));
 		menu.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
 	}catch(err){
@@ -565,11 +559,9 @@ function makeMenu(ctx, menu, layout, main){
 	xbutton.setLayoutParams(btnParams);
 	xbutton.setOnClickListener(new android.view.View.OnClickListener({
 		onClick: function(viewarg) {
-		    if(menu != null){
-			    menu.dismiss();
-			    menu = null;
-		    }
-			if(main && btnMenu != null){
+			menu.dismiss();
+			menu = null;
+			if(main){
 			    btnMenu.dismiss();
 			    btnMenu = null;
 			}
@@ -599,8 +591,8 @@ function showButtons(ctx){
             day = true;
         }
     }
-    //var menu = new android.widget.PopupWindow();
-	//btnMenu = menu;
+    var menu = new android.widget.PopupWindow();
+	btnMenu = menu;
 	
 	var layout = new android.widget.LinearLayout(ctx);
 	layout.setOrientation(0);
@@ -655,11 +647,9 @@ function showButtons(ctx){
 	}));
 	layout.addView(more);
 	
-	var menu = new android.widget.PopupWindow(layout, -2, -2);
-	btnMenu = menu;
-	//menu.setContentView(layout);
-	//menu.setWidth(-2);
-	//menu.setHeight(-2);
+	menu.setContentView(layout);
+	menu.setWidth(-2);
+	menu.setHeight(-2);
 	menu.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.LEFT | android.view.Gravity.TOP, 0, 0);
 }
 
@@ -692,11 +682,10 @@ function name2id(name){
 }
 
 function openMore(ctx, x, y){
-    //var menu = new android.widget.PopupWindow();
-    //menu.setFocusable(true);
-	//btnMenuSub = menu;
+    var menu = new android.widget.PopupWindow();
+    menu.setFocusable(true);
+	btnMenuSub = menu;
 	
-	var scroll = new android.widget.ScrollView(ctx);
 	var layout = new android.widget.LinearLayout(ctx);
 	layout.setOrientation(1);
 	
@@ -849,14 +838,11 @@ function openMore(ctx, x, y){
 		}
 	}));
 	layout.addView(placeBtn);
-	scroll.addView(layout);
 	
-	var menu = new android.widget.PopupWindow(scroll, dip2px(ctx,150), dip2px(ctx,150));
-    menu.setFocusable(true);
-	btnMenuSub = menu;
-	//menu.setContentView(layout);
-	//menu.setWidth(dip2px(ctx,150));
-	//menu.setHeight(dip2px(ctx,250));
+	
+	menu.setContentView(layout);
+	menu.setWidth(dip2px(ctx,150));
+	menu.setHeight(dip2px(ctx,250));
 	menu.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.GRAY));
 	menu.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.LEFT | android.view.Gravity.TOP, x, y);
 }
@@ -865,9 +851,9 @@ function openMenu(){
 	var ctx = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
 	try{
 	    showButtons(ctx);
-		//var menu = new android.widget.PopupWindow();
-		//menu.setFocusable(true);
-		//mainMenu = menu;
+		var menu = new android.widget.PopupWindow();
+		//menu.setFocusable(true); <-- I can't find better solution
+		mainMenu = menu;
 		
 		var layout = new android.widget.LinearLayout(ctx);
 		layout.setOrientation(1);
@@ -897,15 +883,12 @@ function openMenu(){
 		addMenuCategory(ctx, layout, "Miscellaneous", CAT_MISCELLANEOUS_ITEMS);
 		addMenuCategory(ctx, layout, "Custom", null);
 		
-		var menu = new android.widget.PopupWindow(layout, ctx.getWindowManager().getDefaultDisplay().getWidth()/2, ctx.getWindowManager().getDefaultDisplay().getHeight());
 		var mlayout = makeMenu(ctx, menu, layout, true);
+		
 		menu.setContentView(mlayout);
-		//menu.setFocusable(true); <-- I can't find better solution
-		mainMenu = menu;
-		//menu.setContentView(mlayout);
 		//btnWindow.setWidth(100);
-		//menu.setWidth(ctx.getWindowManager().getDefaultDisplay().getWidth()/2);
-		//menu.setHeight(ctx.getWindowManager().getDefaultDisplay().getHeight());
+		menu.setWidth(ctx.getWindowManager().getDefaultDisplay().getWidth()/2);
+		menu.setHeight(ctx.getWindowManager().getDefaultDisplay().getHeight());
 		menu.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.BLACK));
 		menu.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.RIGHT | android.view.Gravity.TOP, 0, 0);
 	}catch(err){
