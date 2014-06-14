@@ -1,6 +1,6 @@
 /*
  Too Many Items Script by MrARM
- Licensed on MIT License
+ Licensed: GPL v3
 */
 
 var btnWindow = null;
@@ -1247,71 +1247,71 @@ function setLangEnglish(){
 function setLangPolish(){
     sTranslation = "Polski";
     sTranslationBy = "Walce79";
-    sFailButton = "Nie uda³o siê pokazaæ przycisku.";
-    sFailMenu = "Nie uda³o siê pokazaæ menu, poniewa¿: ";
-    sReload = "Za³aduj ponownie œwiat, aby zastosowaæ.";
-    sStopRiding = "Aby zakoñczyæ jazdê, dotknij na zwierzê ponownie.";
+    sFailButton = "Nie udaï¿½o siï¿½ pokazaï¿½ przycisku.";
+    sFailMenu = "Nie udaï¿½o siï¿½ pokazaï¿½ menu, poniewaï¿½: ";
+    sReload = "Zaï¿½aduj ponownie ï¿½wiat, aby zastosowaï¿½.";
+    sStopRiding = "Aby zakoï¿½czyï¿½ jazdï¿½, dotknij na zwierzï¿½ ponownie.";
     sAddItemTitle = "Dodaj przedmiot...";
     sItemID = "ID przedmiotu:";
     sItemDmg = "Zniszczenie przedmiotu:";
     sItemCount = "Liczba przedmiotu:";
     sFullStack = "Full stack (64)";
     sAdd = "Dodaj";
-    sDay = "Dzieñ";
+    sDay = "Dzieï¿½";
     sNight = "Noc";
-    sHeal = "Uzdrów";
+    sHeal = "Uzdrï¿½w";
     sKill = "Zabij";
     sSetSpawn = "Ustaw punkt spawn'u";
-    sSpawnSet = "Twój punkt spawn'u zosta³ ustawiony w aktualnej pozycji.";
-    sRideAnimal = "JedŸ na zwierzêciu";
-    sTapAnimal = "Dotknij na zwierzêcie, na którym chcesz jechaæ.";
-    sEntManager = "Mened¿er istot";
+    sSpawnSet = "Twï¿½j punkt spawn'u zostaï¿½ ustawiony w aktualnej pozycji.";
+    sRideAnimal = "Jedï¿½ na zwierzï¿½ciu";
+    sTapAnimal = "Dotknij na zwierzï¿½cie, na ktï¿½rym chcesz jechaï¿½.";
+    sEntManager = "Menedï¿½er istot";
     sSpawnEntities = "Zespawnuj istoty typu...";
     sAgeAnimals = "Ustaw wiek istot typu...";
     sSetOnFire = "Podpal wszystkie istoty typu...";
-    sRemoveEntities = "Usuñ wszystkie istoty typu...";
-    sMakeWeak = "Zrób moby s³abe typu...";
-    sMakeStrong = "Zrób moby bardzo silne typu...";
+    sRemoveEntities = "Usuï¿½ wszystkie istoty typu...";
+    sMakeWeak = "Zrï¿½b moby sï¿½abe typu...";
+    sMakeStrong = "Zrï¿½b moby bardzo silne typu...";
     sSelectEntType = "Wybierz typ istot...";
-    sTapBlocks = "Dotknij na bloki, aby spawnowaæ wybrane istoty. Aby zakoñczyæ naciœnij na g³ówny przycisk.";
+    sTapBlocks = "Dotknij na bloki, aby spawnowaï¿½ wybrane istoty. Aby zakoï¿½czyï¿½ naciï¿½nij na gï¿½ï¿½wny przycisk.";
     sAge = "Ustaw wiek";
     sBaby = "Dziecko";
-    sFullGrown = "Doros³y";
-    sButtonPos = "Wybierz pozycjê przycisku";
-    sPosTopLeft = "Górny-lewy róg, pod paskiem ¿ycia";
-    sPosTopRight = "Górny-prawy róg, za przyciskiem chat'u";
-    sBottomLeft = "Dolny-lewy róg";
-    sBottomRight = "Dolny-prawy róg";
-    sStarterKit = "Pocz¹tkowy zestaw";
+    sFullGrown = "Dorosï¿½y";
+    sButtonPos = "Wybierz pozycjï¿½ przycisku";
+    sPosTopLeft = "Gï¿½rny-lewy rï¿½g, pod paskiem ï¿½ycia";
+    sPosTopRight = "Gï¿½rny-prawy rï¿½g, za przyciskiem chat'u";
+    sBottomLeft = "Dolny-lewy rï¿½g";
+    sBottomRight = "Dolny-prawy rï¿½g";
+    sStarterKit = "Poczï¿½tkowy zestaw";
     sBuilding = "Bloki budowlane";
     sDecoration = "Bloki dekoracyjne";
     sArmour = "Zbroja";
-    sTools = "Narzêdzia";
+    sTools = "Narzï¿½dzia";
     sFood = "Jedzenie";
     sDyes = "Barwniki";
     sItems = "Przedmioty";
     sSpawnEggs = "Jajka Spawnu";
-    sMiscellaneou = "Uzupe³niaj¹ce";
-    sCustom = "W³asne";
+    sMiscellaneou = "Uzupeï¿½niajï¿½ce";
+    sCustom = "Wï¿½asne";
     
     CAT_STARTER_KIT_ITEMS = [
-      {name: "Diamentowy He³m", id: 310, data: 0},
-      {name: "Diamentowy Napierœnik", id: 311, data: 0},
+      {name: "Diamentowy Heï¿½m", id: 310, data: 0},
+      {name: "Diamentowy Napierï¿½nik", id: 311, data: 0},
       {name: "Diamentowe Spodnie", id: 312, data: 0},
       {name: "Diamentowe Buty", id: 313, data: 0},
       {name: "Diamentowy Miecz", id: 276, data: 0},
-      {name: "Diamentowa £opata", id: 277, data: 0},
+      {name: "Diamentowa ï¿½opata", id: 277, data: 0},
       {name: "Diamentowy Kilof", id: 278, data: 0},
       {name: "Diamentowa Motyla", id: 293, data: 0},
       {name: "Diamentowa Siekiera", id: 279, data: 0},
       {name: "Crafting Table", id: 58, data: 0},
-      {name: "£ó¿ko", id: 355, data: 0},
+      {name: "ï¿½ï¿½ï¿½ko", id: 355, data: 0},
       {name: "Pochodnia", id: 50, data: 0},
       {name: "Deski", id: 5, data: 0}];
       
     CAT_BUILDING_ITEMS = [
       {name: "Stone", id: 1, data: 0},
-      {name: "Ziemia z traw¹", id: 2, data: 0},
+      {name: "Ziemia z trawï¿½", id: 2, data: 0},
       {name: "Ziemia", id: 3, data: 0},
       {name: "Cobblestone", id: 4, data: 0},
       {name: "Deski", id: 5, data: 0},
@@ -1319,56 +1319,56 @@ function setLangPolish(){
       {name: "Deski Brzozy", id: 5, data: 2},
       {name: "Bedrock", id: 7, data: 0},
       {name: "Piasek", id: 12, data: 0},
-      {name: "¯wir", id: 13, data: 0},
-      {name: "G¹bka", id: 19, data: 0},
-      {name: "Zwyk³e Drzewo", id: 17, data: 0},
+      {name: "ï¿½wir", id: 13, data: 0},
+      {name: "Gï¿½bka", id: 19, data: 0},
+      {name: "Zwykï¿½e Drzewo", id: 17, data: 0},
       {name: "Ciemne Drzewo", id: 17, data: 1},
       {name: "Brzozowe Drzewo", id: 17, data: 2},
-      {name: "D¿unglowe Drzewo", id: 17, data: 3},
-      {name: "Szk³o", id: 20, data: 0},
+      {name: "Dï¿½unglowe Drzewo", id: 17, data: 3},
+      {name: "Szkï¿½o", id: 20, data: 0},
       {name: "Lapis Lazuli Block", id: 22, data: 0},
       {name: "Sandstone", id: 24, data: 0},
       {name: "Chiseled Sandstone", id: 24, data: 1},
       {name: "Smooth Sandstone", id: 24, data: 2},
-      {name: "Bia³a We³na", id: 35, data: 0},
-      {name: "Pomarañczowa We³na", id: 35, data: 1},
-      {name: "Magenta We³na", id: 35, data: 2},
-      {name: "Letki Niebieski We³na", id: 35, data: 3},
-      {name: "¯ó³ta We³na", id: 35, data: 4},
-      {name: "Lime We³na", id: 35, data: 5},
-      {name: "Ró¿owa We³na", id: 35, data: 6},
-      {name: "Gray We³na", id: 35, data: 7},
-      {name: "Light Gray We³na", id: 35, data: 8},
-      {name: "Cyan We³na", id: 35, data: 9},
-      {name: "Pulpurowa We³na", id: 35, data: 10},
-      {name: "Niebieska We³na", id: 35, data: 11},
-      {name: "Br¹zowa We³na", id: 35, data: 12},
-      {name: "Zielona We³na", id: 35, data: 13},
-      {name: "Czerwona We³na", id: 35, data: 14},
-      {name: "Czarna We³na", id: 35, data: 15},
-      {name: "Blok Diamentów", id: 57, data: 0},
-      {name: "Blok Z³ota", id: 41, data: 0},
-      {name: "Blok ¯elazny", id: 42, data: 0},
-      {name: "Blok Wêgla", id: 173, data: 0},
+      {name: "Biaï¿½a Weï¿½na", id: 35, data: 0},
+      {name: "Pomaraï¿½czowa Weï¿½na", id: 35, data: 1},
+      {name: "Magenta Weï¿½na", id: 35, data: 2},
+      {name: "Letki Niebieski Weï¿½na", id: 35, data: 3},
+      {name: "ï¿½ï¿½ï¿½ta Weï¿½na", id: 35, data: 4},
+      {name: "Lime Weï¿½na", id: 35, data: 5},
+      {name: "Rï¿½ï¿½owa Weï¿½na", id: 35, data: 6},
+      {name: "Gray Weï¿½na", id: 35, data: 7},
+      {name: "Light Gray Weï¿½na", id: 35, data: 8},
+      {name: "Cyan Weï¿½na", id: 35, data: 9},
+      {name: "Pulpurowa Weï¿½na", id: 35, data: 10},
+      {name: "Niebieska Weï¿½na", id: 35, data: 11},
+      {name: "Brï¿½zowa Weï¿½na", id: 35, data: 12},
+      {name: "Zielona Weï¿½na", id: 35, data: 13},
+      {name: "Czerwona Weï¿½na", id: 35, data: 14},
+      {name: "Czarna Weï¿½na", id: 35, data: 15},
+      {name: "Blok Diamentï¿½w", id: 57, data: 0},
+      {name: "Blok Zï¿½ota", id: 41, data: 0},
+      {name: "Blok ï¿½elazny", id: 42, data: 0},
+      {name: "Blok Wï¿½gla", id: 173, data: 0},
       {name: "blok Stone", id: 43, data: 0},
       {name: "blok Sandstone", id: 43, data: 1},
       {name: "blok Drewna", id: 43, data: 2},
       {name: "blok Cobblestone", id: 43, data: 3},
       {name: "Kraty", id: 101, data: 0},
-      {name: "Ceg³a", id: 43, data: 4},
-      {name: "Pó³blok Stone", id: 44, data: 0},
-      {name: "Pó³blok Sandstone", id: 44, data: 1},
+      {name: "Cegï¿½a", id: 43, data: 4},
+      {name: "Pï¿½ï¿½blok Stone", id: 44, data: 0},
+      {name: "Pï¿½ï¿½blok Sandstone", id: 44, data: 1},
 //Wooden Slab (44:2)
-      {name: "Pó³blok drewna", id: 158, data: 0},
-      {name: "Pó³blok Ciemnego Drewna", id: 158, data: 1},
-      {name: "Pó³blok Brzozy", id: 158, data: 2},
-      {name: "Pó³blok Cobblestone", id: 44, data: 3},
-      {name: "Pó³blok Ceg³y", id: 44, data: 4},
-      {name: "Pó³blok Stone Ceg³y", id: 44, data: 5},
+      {name: "Pï¿½ï¿½blok drewna", id: 158, data: 0},
+      {name: "Pï¿½ï¿½blok Ciemnego Drewna", id: 158, data: 1},
+      {name: "Pï¿½ï¿½blok Brzozy", id: 158, data: 2},
+      {name: "Pï¿½ï¿½blok Cobblestone", id: 44, data: 3},
+      {name: "Pï¿½ï¿½blok Cegï¿½y", id: 44, data: 4},
+      {name: "Pï¿½ï¿½blok Stone Cegï¿½y", id: 44, data: 5},
 //Stone Slab (44:6)
-      {name: "Pó³blok Quartzu", id: 44, data: 7},
-      {name: "Blok Ceg³y", id: 45, data: 0},
-      {name: "Blok Ceg³y Netherowej", id: 112, data: 0},
+      {name: "Pï¿½ï¿½blok Quartzu", id: 44, data: 7},
+      {name: "Blok Cegï¿½y", id: 45, data: 0},
+      {name: "Blok Cegï¿½y Netherowej", id: 112, data: 0},
       {name: "Mossy Cobblestone", id: 48, data: 0},
       {name: "Obdisian", id: 49, data: 0},
       {name: "Drewniany Schodek", id: 53, data: 0},
@@ -1377,32 +1377,32 @@ function setLangPolish(){
       {name: "Drewniany Dzunglowy Schodek", id: 136, data: 0},
       {name: "Cobblestone Schodek", id: 67, data: 0},
       {name: "Ceglany Schodek", id: 108, data: 0},
-      {name: "Stone Ceg³a Schodek", id: 109, data: 0},
-      {name: "Ceg³a Netherowa Schodek", id: 114, data: 0},
+      {name: "Stone Cegï¿½a Schodek", id: 109, data: 0},
+      {name: "Cegï¿½a Netherowa Schodek", id: 114, data: 0},
       {name: "Sandstone Schodek", id: 128, data: 0},
       {name: "Quartz Schodek", id: 156, data: 0},
       {name: "Murek z Cobelstone", id: 139, data: 0},
       {name: "Murek z Moss Stone ", id: 139, data: 1},
       {name: "Clay Blok", id: 82, data: 0},
-      {name: "P³otek", id: 85, data: 0},
+      {name: "Pï¿½otek", id: 85, data: 0},
       {name: "Furtka", id: 107, data: 0},
       {name: "Netherrack", id: 87, data: 0},
 // Invisible bedrock (95)
-      {name: "Stone Ceg³a", id: 98, data: 0},
-      {name: "Mossy Stone Ceg³a", id: 98, data: 1},
-      {name: "Cracked Stone Ceg³a", id: 98, data: 2},
-      {name: "Szk³o cieñkie", id: 102, data: 0}];
+      {name: "Stone Cegï¿½a", id: 98, data: 0},
+      {name: "Mossy Stone Cegï¿½a", id: 98, data: 1},
+      {name: "Cracked Stone Cegï¿½a", id: 98, data: 2},
+      {name: "Szkï¿½o cieï¿½kie", id: 102, data: 0}];
       
     CAT_DECORATION_ITEMS = [
       {name: "Dynia", id: 86, data: 0},
       {name: "Jack'o'Lantern", id: 91, data: 0},
-      {name: "Dywan Bia³y", id: 171, data: 0},
-      {name: "Zó³ty Kwiat", id: 37, data: 0},
+      {name: "Dywan Biaï¿½y", id: 171, data: 0},
+      {name: "Zï¿½ï¿½ty Kwiat", id: 37, data: 0},
       {name: "Niebieski Kwiat", id: 38, data: 0},
-      {name: "Pó³ka z Ksi¹¿kami", id: 47, data: 0},
+      {name: "Pï¿½ï¿½ka z Ksiï¿½ï¿½kami", id: 47, data: 0},
       {name: "Snieg", id: 78, data: 0},
-      {name: "Lód", id: 79, data: 0},
-      {name: "Blok Œniegu", id: 80, data: 0},
+      {name: "Lï¿½d", id: 79, data: 0},
+      {name: "Blok ï¿½niegu", id: 80, data: 0},
       {name: "Kaktus", id: 81, data: 0},
       {name: "Cukrowy Cane", id: 338, data: 0},
 //Sugar Cane (83)
@@ -1421,54 +1421,54 @@ function setLangPolish(){
       {name: "Obraz", id: 321, data: 0}];
       
     CAT_ARMOUR_ITEMS = [
-      {name: "Diamentowy He³m", id: 310, data: 0},
-      {name: "Diamentowy Napierœnik", id: 311, data: 0},
+      {name: "Diamentowy Heï¿½m", id: 310, data: 0},
+      {name: "Diamentowy Napierï¿½nik", id: 311, data: 0},
       {name: "Diamentowe Spodnie", id: 312, data: 0},
       {name: "Diamentowe Buty", id: 313, data: 0},
-      {name: "Z³oty He³m", id: 314, data: 0},
-      {name: "Z³oty Napierœnik", id: 315, data: 0},
-      {name: "Z³ote Spodnie", id: 316, data: 0},
-      {name: "Z³ote Buty", id: 317, data: 0},
-      {name: "¯elzny He³m", id: 306, data: 0},
-      {name: "¯elazny Napierœnik", id: 307, data: 0},
-      {name: "¯elazne Spodnie", id: 308, data: 0},
-      {name: "¯elazne Buty", id: 309, data: 0},
-      {name: "Kolczuga-He³m", id: 302, data: 0},
-      {name: "Kolczuga-Napierœnik", id: 303, data: 0},
+      {name: "Zï¿½oty Heï¿½m", id: 314, data: 0},
+      {name: "Zï¿½oty Napierï¿½nik", id: 315, data: 0},
+      {name: "Zï¿½ote Spodnie", id: 316, data: 0},
+      {name: "Zï¿½ote Buty", id: 317, data: 0},
+      {name: "ï¿½elzny Heï¿½m", id: 306, data: 0},
+      {name: "ï¿½elazny Napierï¿½nik", id: 307, data: 0},
+      {name: "ï¿½elazne Spodnie", id: 308, data: 0},
+      {name: "ï¿½elazne Buty", id: 309, data: 0},
+      {name: "Kolczuga-Heï¿½m", id: 302, data: 0},
+      {name: "Kolczuga-Napierï¿½nik", id: 303, data: 0},
       {name: "Kolczuga-Spodnie", id: 304, data: 0},
       {name: "Kolczuga-Buty", id: 305, data: 0},
-      {name: "Skórowy He³m", id: 298, data: 0},
-      {name: "Skórowy Napierœnik", id: 299, data: 0},
-      {name: "Skórowe Spodnie", id: 300, data: 0},
-      {name: "Skórowe Buty", id: 301, data: 0}];
+      {name: "Skï¿½rowy Heï¿½m", id: 298, data: 0},
+      {name: "Skï¿½rowy Napierï¿½nik", id: 299, data: 0},
+      {name: "Skï¿½rowe Spodnie", id: 300, data: 0},
+      {name: "Skï¿½rowe Buty", id: 301, data: 0}];
       
     CAT_TOOLS_ITEMS = [
       {name: "Zapalniczka", id: 259, data: 0},
-      {name: "£uk", id: 261, data: 0},
-      {name: "Strza³a", id: 262, data: 0},
-      {name: "No¿yczki", id: 359, data: 0},
+      {name: "ï¿½uk", id: 261, data: 0},
+      {name: "Strzaï¿½a", id: 262, data: 0},
+      {name: "Noï¿½yczki", id: 359, data: 0},
       {name: "Diamentowy miecz", id: 276, data: 0},
-      {name: "Diamentowa £opata", id: 277, data: 0},
+      {name: "Diamentowa ï¿½opata", id: 277, data: 0},
       {name: "Diamentowy Kilof", id: 278, data: 0},
       {name: "Diamentowa Motyka", id: 293, data: 0},
       {name: "Diamentowa Siekiera", id: 279, data: 0},
-      {name: "Z³oty Miecz", id: 283, data: 0},
-      {name: "Z³ota £opata", id: 284, data: 0},
-      {name: "Z³oty Kilof", id: 285, data: 0},
-      {name: "Z³ota Motyka", id: 294, data: 0},
-      {name: "Z³ota Siekiera", id: 286, data: 0},
-      {name: "¯elazny Miecz", id: 267, data: 0},
-      {name: "¯elazna £opata", id: 256, data: 0},
-      {name: "¯elazny Kilof", id: 257, data: 0},
-      {name: "¯elazna Motyka", id: 292, data: 0},
-      {name: "¯elazna Siekiera", id: 258, data: 0},
+      {name: "Zï¿½oty Miecz", id: 283, data: 0},
+      {name: "Zï¿½ota ï¿½opata", id: 284, data: 0},
+      {name: "Zï¿½oty Kilof", id: 285, data: 0},
+      {name: "Zï¿½ota Motyka", id: 294, data: 0},
+      {name: "Zï¿½ota Siekiera", id: 286, data: 0},
+      {name: "ï¿½elazny Miecz", id: 267, data: 0},
+      {name: "ï¿½elazna ï¿½opata", id: 256, data: 0},
+      {name: "ï¿½elazny Kilof", id: 257, data: 0},
+      {name: "ï¿½elazna Motyka", id: 292, data: 0},
+      {name: "ï¿½elazna Siekiera", id: 258, data: 0},
       {name: "Stone Miecz", id: 272, data: 0},
-      {name: "Stone £opata", id: 273, data: 0},
+      {name: "Stone ï¿½opata", id: 273, data: 0},
       {name: "Stone Kilof", id: 274, data: 0},
       {name: "Stone Motyka", id: 291, data: 0},
       {name: "Stone Siekiera", id: 275, data: 0},
       {name: "Drewniany Miecz", id: 268, data: 0},
-      {name: "Drewniana £opata", id: 269, data: 0},
+      {name: "Drewniana ï¿½opata", id: 269, data: 0},
       {name: "Drewniany Kilof", id: 270, data: 0},
       {name: "Drewniana Motyka", id: 290, data: 0},
       {name: "Drewniana Siekiera", id: 271, data: 0}];
@@ -1476,13 +1476,13 @@ function setLangPolish(){
     CAT_FOOD_ITEMS = [
       {name: "Chleb", id: 297, data: 0},
       {name: "Bale siana", id: 170, data: 0},
-      {name: "Jab³ko", id: 260, data: 0},
-      {name: "Br¹zowy Grzyb", id: 39, data: 0},
+      {name: "Jabï¿½ko", id: 260, data: 0},
+      {name: "Brï¿½zowy Grzyb", id: 39, data: 0},
       {name: "Czerwony Grzyb", id: 40, data: 0},
       {name: "Grzybowa", id: 282, data: 0},
       {name: "Wieprzowina", id: 319, data: 0},
       {name: "Gotowana Wieprzowina", id: 320, data: 0},
-      {name: "Wo³owina", id: 363, data: 0},
+      {name: "Woï¿½owina", id: 363, data: 0},
       {name: "Stek", id: 364, data: 0},
       {name: "Kurczak", id: 365, data: 0},
       {name: "Gotowany Kurczak", id: 366, data: 0},
@@ -1510,54 +1510,54 @@ function setLangPolish(){
       {name: "Light Blue", id: 351, data: 12},
       {name: "Magenta", id: 351, data: 13},
       {name: "Orange", id: 351, data: 14},
-      {name: "Kosta M¹czna", id: 351, data: 15}];
+      {name: "Kosta Mï¿½czna", id: 351, data: 15}];
       
     CAT_ITEMS_ITEMS = [
-      {name: "Ruda Diamentów", id: 56, data: 0},
-      {name: "Ruda Z³ota", id: 14, data: 0},
-      {name: "Ruda ¯elaza", id: 15, data: 0},
-      {name: "Ruda Wêgla", id: 16, data: 0},
+      {name: "Ruda Diamentï¿½w", id: 56, data: 0},
+      {name: "Ruda Zï¿½ota", id: 14, data: 0},
+      {name: "Ruda ï¿½elaza", id: 15, data: 0},
+      {name: "Ruda Wï¿½gla", id: 16, data: 0},
       {name: "Ruda Lapis Lazuli", id: 21, data: 0},
       {name: "Ruda Redstone", id: 73, data: 0},
 // Glowing Redstone Ore (74)
       {name: "Diamenty", id: 264, data: 0},
-      {name: "¯elazo", id: 265, data: 0},
-      {name: "Z³oto", id: 266, data: 0},
+      {name: "ï¿½elazo", id: 265, data: 0},
+      {name: "Zï¿½oto", id: 266, data: 0},
       {name: "Redstone", id: 331,data: 0},
       {name: "Patyki", id: 280, data: 0},
       {name: "Flint", id: 318, data: 0},
       {name: "Miska", id: 281, data: 0},
-      {name: "Koœæ", id: 352, data: 0},
-      {name: "Pajêczyna", id: 287, data: 0},
-      {name: "Skóra", id: 334, data: 0},
-      {name: "Pióro", id: 288, data: 0},
+      {name: "Koï¿½ï¿½", id: 352, data: 0},
+      {name: "Pajï¿½czyna", id: 287, data: 0},
+      {name: "Skï¿½ra", id: 334, data: 0},
+      {name: "Piï¿½ro", id: 288, data: 0},
       {name: "Cukier", id: 353, data: 0},
       {name: "Gunpowder", id: 289, data: 0},
-      {name: "Zbo¿e", id: 296, data: 0},
+      {name: "Zboï¿½e", id: 296, data: 0},
       {name: "Chleb", id: 297, data: 0},
-      {name: "Siod³o", id: 329, data: 0},
-      {name: "Snie¿ki", id: 332, data: 0},
+      {name: "Siodï¿½o", id: 329, data: 0},
+      {name: "Snieï¿½ki", id: 332, data: 0},
       {name: "Slime Ball", id: 341, data: 0},
       {name: "Jajka", id: 344, data: 0},
       {name: "Clay", id: 337, data: 0},
       {name: "Clay Brick", id: 336, data: 0},
-      {name: "Nether Ceg³a", id: 405, data: 0},
+      {name: "Nether Cegï¿½a", id: 405, data: 0},
       {name: "Nether Quartz", id: 406, data: 0},
       {name: "Papier", id: 339, data: 0},
-      {name: "Ksi¹¿ka", id: 340, data: 0},
+      {name: "Ksiï¿½ï¿½ka", id: 340, data: 0},
       {name: "Kompas", id: 345, data: 0},
       {name: "Zegar", id: 347, data: 0},
       {name: "Minecart", id: 328, data: 10},
       {name: "Tory", id: 66, data: 11},
       {name: "Tory Zasilane", id: 27, data: 13},
       {name: "Glowstone Dust", id: 348, data: 0},
-      {name: "Kawa³ek Arbuza", id: 360, data: 0}];
+      {name: "Kawaï¿½ek Arbuza", id: 360, data: 0}];
       
     CAT_SPAWN_ITEMS = [
-      {name: "Jajko spawnuj¹ce Kurczaka", id: 383, data: 10},
-      {name: "Jajko spawnuj¹ce Krowe", id: 383, data: 11},
-      {name: "Jajko spawnuj¹ce Œwinie", id: 383, data: 12},
-      {name: "Jajko spawnuj¹ce Owce", id: 383, data: 13}];
+      {name: "Jajko spawnujï¿½ce Kurczaka", id: 383, data: 10},
+      {name: "Jajko spawnujï¿½ce Krowe", id: 383, data: 11},
+      {name: "Jajko spawnujï¿½ce ï¿½winie", id: 383, data: 12},
+      {name: "Jajko spawnujï¿½ce Owce", id: 383, data: 13}];
       
     CAT_MISCELLANEOUS_ITEMS = [
       {name: "Crafting Table", id: 58, data: 0},
@@ -1568,35 +1568,35 @@ function setLangPolish(){
       {name: "Pochodnie", id: 50, data: 0},
       {name: "Drabinka", id: 65, data: 0},
       {name: "Drzwi Drewniane", id: 324, data: 0},
-      {name: "Drzwi ¯elazne", id: 330, data: 0},
+      {name: "Drzwi ï¿½elazne", id: 330, data: 0},
       {name: "Klapa", id: 96, data: 0},
       {name: "Tabliczka", id: 323, data: 0},
-      {name: "£ó¿ko", id: 355, data: 0},
-      {name: "Wêgiel", id: 263, data: 0},
-      {name: "Wêgiel Drzewny", id: 263, data: 1},
+      {name: "ï¿½ï¿½ï¿½ko", id: 355, data: 0},
+      {name: "Wï¿½giel", id: 263, data: 0},
+      {name: "Wï¿½giel Drzewny", id: 263, data: 1},
       {name: "Sadzonka Drzewa", id: 6, data: 0},
       {name: "Sadzonka Ciemnego Drzewa", id: 6, data: 1},
       {name: "Sadzonka Brzozy", id: 6, data: 2},
       {name: "Sadzonka Arbuza", id: 105, data: 0},
-      {name: "Ziarna Zbo¿a", id: 295, data: 0},
+      {name: "Ziarna Zboï¿½a", id: 295, data: 0},
       {name: "Pestki Arbuza", id: 362, data: 0},
-      {name: "Ziarna Buraczków", id: 458,data: 0},
+      {name: "Ziarna Buraczkï¿½w", id: 458,data: 0},
       {name: "Ziarna Marchwki", id: 141, data: 0},
       {name: "Bulwy Ziemniaka", id: 142, data: 0},
       {name: "Pojemnik", id: 325, data: 0},
       {name: "Pojemnik z Mlekiem", id: 325, data: 1},
-      {name: "Pojemnik z Wod¹", id: 325, data: 8},
+      {name: "Pojemnik z Wodï¿½", id: 325, data: 8},
 // Water (8)
       {name: "Stacjonarna Woda", id: 9, data: 0},
-      {name: "Pojemnik z Lav¹", id: 325, data: 10},
+      {name: "Pojemnik z Lavï¿½", id: 325, data: 10},
 // Lava (10)
       {name: "Stacjonarna lava", id: 11, data: 0},
-      {name: "Liœcie Drzewa", id: 18, data: 0},
-      {name: "Liœcie Ciemnego Drzewa", id: 18, data: 1},
+      {name: "Liï¿½cie Drzewa", id: 18, data: 0},
+      {name: "Liï¿½cie Ciemnego Drzewa", id: 18, data: 1},
       {name: "Lisccie Brzozy", id: 18, data: 2},
       {name: "Sponage", id: 19,data: 0},
-      {name: "£ó¿ko", id: 26, data: 0},
-      {name: "Pajêczyna Stoj¹ca", id: 30, data: 0},
+      {name: "ï¿½ï¿½ï¿½ko", id: 26, data: 0},
+      {name: "Pajï¿½czyna Stojï¿½ca", id: 30, data: 0},
       {name: "Krzak Pustynny", id: 31, data: 0},
       {name: "TNT", id: 46, data: 0},
 // Fire (51)
