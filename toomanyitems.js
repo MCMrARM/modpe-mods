@@ -10,12 +10,12 @@ var btnMenuSub = null;
 var subMenu = null;
 var infoMenu = null;
 
-var addToInventory = false;
+var addToInventory = true;
 var addId;
 var addDmg;
 var addCount;
-var ride = false;
-var riding = false;
+var ride = true;
+var riding = true;
 var ridingAnimal;
 var spawnOnTap = -1;
 
