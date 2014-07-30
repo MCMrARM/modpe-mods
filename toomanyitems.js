@@ -10,7 +10,8 @@ var btnMenuSub = null;
 var subMenu = null;
 var infoMenu = null;
 
-var addToInventory = false;
+var addToInventory = true;
+
 var addId;
 var addDmg;
 var addCount;
