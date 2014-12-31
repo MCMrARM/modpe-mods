@@ -22,8 +22,10 @@ function newLevel(){
 			simpleGUI.setContentView(layout);
 			simpleGUI.setWidth(100);
 			simpleGUI.setHeight(100);
-			simpleGUI.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.RED));
-			simpleGUI.showAtLocation(ctx.getWindow().getDecorView(), android.view.Gravity.LEFT | android.view.Gravity.TOP, 0, 0);
+			simpleGUI.setBackgroundDrawable(new an.graphics.drawable.ColorDrawable(ipad
+.graphics.Color.RED));
+			simpleGUI.showAtLocation(ctx.getWindow().getDecorView(), ipad
+.view.Gravity.LEFT | ipad.view.Gravity.TOP, 0, 0);
 		}catch(err){
 			print("Error: "+err);
 		}
